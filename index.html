@@ -166,9 +166,12 @@
     }
     .cards3{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap:18px;
       margin-top:18px;
+    }
+    @media (max-width: 1024px){
+      .cards3{grid-template-columns: repeat(2, 1fr)}
     }
     .card-dark{
       background: rgba(255,255,255,.06);
@@ -513,6 +516,18 @@
         <h3>Speed & SEO</h3>
         <p>Performance optimization, basic SEO, and lead setup (WhatsApp + contact forms).</p>
       </div>
+
+      <div class="card-dark reveal">
+        <div class="iconbox">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 6h16v12H4z"/>
+            <path d="m4 7 8 6 8-6"/>
+          </svg>
+        </div>
+        <h3>Business Emails</h3>
+        <p>Domain-based professional email setup (Google Workspace / Microsoft 365) with SPF, DKIM & DMARC support.</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -534,10 +549,11 @@
       </div>
     </div>
 
-    <p class="port-sub reveal">My playlist videos</p>
-
     <div class="yt-cards reveal" id="ytCards" aria-label="Playlist videos"></div>
     <div class="yt-status" id="ytStatus">Loading playlist videos…</div>
+    <div style="text-align:center;margin-top:22px;">
+      <button id="loadMoreBtn" class="btn primary" style="display:none;">Load More</button>
+    </div>
   </div>
 </section>
 
@@ -718,6 +734,10 @@
   ytX.addEventListener("click", closeVideo);
   window.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeVideo(); });
 
+  
+  let allVideos = [];
+  let visibleCount = 6;
+
   async function loadPlaylistCards(){
     if(!ytCards || !ytStatus) return;
 
@@ -729,33 +749,13 @@
       if(!res.ok) throw new Error("Fetch failed");
       const data = await res.json();
 
-      const items = (data.items || []).slice(0, 12);
-      if(!items.length) throw new Error("No videos found");
+      allVideos = data.items || [];
+      if(!allVideos.length) throw new Error("No videos found");
 
-      ytCards.innerHTML = items.map((v)=>{
-        const id = extractVideoId(v.link);
-        const thumb = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-        const date = formatDate(v.pubDate);
-        return `
-          <article class="yt-card" data-vid="${id}" tabindex="0" aria-label="Open video: ${v.title}">
-            <img class="yt-thumb" src="${thumb}" alt="${v.title}" loading="lazy">
-            <div class="yt-body">
-              <h3 class="yt-title">${v.title}</h3>
-              <p class="yt-meta">${date}</p>
-            </div>
-          </article>
-        `;
-      }).join("");
-
+      renderVideos();
       ytStatus.style.display="none";
 
-      ytCards.querySelectorAll(".yt-card").forEach(card=>{
-        const id = card.getAttribute("data-vid");
-        card.addEventListener("click", ()=> openVideo(id));
-        card.addEventListener("keydown", (e)=>{ if(e.key==="Enter") openVideo(id); });
-      });
-
-      // Auto-scroll to newest when portfolio comes into view
+      // Auto-scroll to newest
       const newest = ytCards.querySelector(".yt-card");
       const portfolioSection = document.getElementById("portfolio");
       if(newest && portfolioSection){
@@ -776,6 +776,43 @@
       console.warn(err);
     }
   }
+
+  function renderVideos(){
+    const slice = allVideos.slice(0, visibleCount);
+
+    ytCards.innerHTML = slice.map((v)=>{
+      const id = extractVideoId(v.link);
+      const thumb = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+      const date = formatDate(v.pubDate);
+      return `
+        <article class="yt-card" data-vid="${id}" tabindex="0">
+          <img class="yt-thumb" src="${thumb}" alt="${v.title}" loading="lazy">
+          <div class="yt-body">
+            <h3 class="yt-title">${v.title}</h3>
+            <p class="yt-meta">${date}</p>
+          </div>
+        </article>
+      `;
+    }).join("");
+
+    ytCards.querySelectorAll(".yt-card").forEach(card=>{
+      const id = card.getAttribute("data-vid");
+      card.onclick = ()=> openVideo(id);
+      card.onkeydown = (e)=>{ if(e.key==="Enter") openVideo(id); };
+    });
+
+    const btn = document.getElementById("loadMoreBtn");
+    if(visibleCount < allVideos.length){
+      btn.style.display = "inline-flex";
+    }else{
+      btn.style.display = "none";
+    }
+  }
+
+  document.getElementById("loadMoreBtn")?.addEventListener("click", ()=>{
+    visibleCount += 6;
+    renderVideos();
+  });
 
   loadPlaylistCards();
 </script>
