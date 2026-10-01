@@ -426,6 +426,290 @@
       .fab{width:54px;height:54px}
     }
 
+    /* ===== AI ASSISTANT CHAT WIDGET ===== */
+    .fab-ai{
+      background: linear-gradient(135deg, #19b7b0, #7928ca)!important;
+      color:#fff!important;
+      box-shadow: 0 14px 40px rgba(121,40,202,.35), 0 10px 25px rgba(25,183,176,.3)!important;
+      position:relative;
+      cursor:pointer;
+    }
+    .fab-ai .spark{
+      font-size:22px;
+      display:inline-block;
+      animation: floatSpark 2.8s ease-in-out infinite;
+    }
+    @keyframes floatSpark{
+      0%, 100%{ transform: rotate(0deg) scale(1); }
+      50%{ transform: rotate(12deg) scale(1.15); }
+    }
+    .fab-ai::after{
+      content:"";
+      position:absolute; inset:-4px;
+      border-radius:999px;
+      background: linear-gradient(135deg, #19b7b0, #a855f7);
+      z-index:-1;
+      opacity:.5;
+      animation: aiPulse 2.4s infinite;
+    }
+    @keyframes aiPulse{
+      0%, 100%{ transform: scale(1); opacity:.5; }
+      50%{ transform: scale(1.18); opacity:0; }
+    }
+
+    .ai-chat-card{
+      position: fixed;
+      right: 20px;
+      bottom: 90px;
+      width: min(390px, calc(100vw - 32px));
+      height: min(540px, 82vh);
+      background: rgba(11, 18, 36, 0.95);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(25, 183, 176, 0.35);
+      border-radius: 22px;
+      box-shadow: 0 25px 70px rgba(0,0,0,.75), 0 0 40px rgba(25,183,176,.15);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px) scale(0.95);
+      transition: all .28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .ai-chat-card.open{
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .ai-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 18px;
+      background: linear-gradient(135deg, rgba(25,183,176,.15), rgba(121,40,202,.15));
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .ai-header-left{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .ai-avatar{
+      width:38px; height:38px;
+      border-radius:12px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color:#001214;
+      font-size:19px;
+      box-shadow: 0 4px 14px rgba(25,183,176,.35);
+    }
+    .ai-title{
+      font-weight:800;
+      font-size:14.5px;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .ai-status{
+      font-size:11.5px;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      gap:6px;
+      margin-top:2px;
+    }
+    .ai-dot{
+      width:7px; height:7px;
+      border-radius:999px;
+      background:#2fd3cc;
+      display:inline-block;
+      box-shadow: 0 0 8px #2fd3cc;
+      animation: aiDotGlow 1.8s infinite;
+    }
+    @keyframes aiDotGlow{
+      0%, 100%{ opacity: 1; }
+      50%{ opacity: .4; }
+    }
+    .ai-close-btn{
+      width:32px; height:32px;
+      border-radius:10px;
+      border:0;
+      background: rgba(255,255,255,.08);
+      color:#fff;
+      cursor:pointer;
+      font-size:14px;
+      display:grid;
+      place-items:center;
+      transition: .2s ease;
+    }
+    .ai-close-btn:hover{
+      background: rgba(255,255,255,.18);
+      transform: scale(1.05);
+    }
+
+    .ai-messages{
+      flex:1;
+      overflow-y:auto;
+      padding:16px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      scroll-behavior:smooth;
+    }
+    .ai-messages::-webkit-scrollbar{ width:5px; }
+    .ai-messages::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.15); border-radius:999px; }
+
+    .ai-msg{
+      display:flex;
+      flex-direction:column;
+      max-width:86%;
+      font-size:13.5px;
+      line-height:1.55;
+      animation: aiMsgIn .25s ease forwards;
+    }
+    @keyframes aiMsgIn{
+      from{ opacity:0; transform:translateY(8px); }
+      to{ opacity:1; transform:none; }
+    }
+    .ai-msg.bot{
+      align-self:flex-start;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 16px 16px 16px 4px;
+      padding: 12px 14px;
+      color: rgba(234,240,255,.94);
+    }
+    .ai-msg.user{
+      align-self:flex-end;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #001214;
+      font-weight:650;
+      border-radius: 16px 16px 4px 16px;
+      padding: 10px 14px;
+      box-shadow: 0 6px 18px rgba(25,183,176,.25);
+    }
+
+    .ai-action-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      margin-top:8px;
+      margin-right:6px;
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      background: rgba(25,183,176,.20);
+      border: 1px solid rgba(25,183,176,.45);
+      color: var(--accent2);
+      text-decoration:none;
+      transition: .2s ease;
+      cursor:pointer;
+    }
+    .ai-action-btn:hover{
+      background: var(--accent2);
+      color: #001214;
+      transform: translateY(-1px);
+    }
+
+    .ai-typing{
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      padding:4px 6px;
+    }
+    .ai-typing span{
+      width:6px; height:6px;
+      border-radius:999px;
+      background: var(--accent2);
+      animation: aiTyping 1.2s infinite ease-in-out;
+    }
+    .ai-typing span:nth-child(2){ animation-delay:.2s; }
+    .ai-typing span:nth-child(3){ animation-delay:.4s; }
+    @keyframes aiTyping{
+      0%, 80%, 100%{ transform: scale(0.6); opacity: 0.4; }
+      40%{ transform: scale(1.1); opacity: 1; }
+    }
+
+    .ai-chips{
+      display:flex;
+      gap:6px;
+      overflow-x:auto;
+      padding:8px 14px;
+      background: rgba(0,0,0,.22);
+      border-top:1px solid rgba(255,255,255,.06);
+      white-space:nowrap;
+    }
+    .ai-chips::-webkit-scrollbar{ height:3px; }
+    .ai-chips::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.1); border-radius:999px; }
+    .ai-chip{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(234,240,255,.88);
+      font-size:11.8px;
+      padding:5px 10px;
+      border-radius:999px;
+      cursor:pointer;
+      transition:.2s ease;
+      flex-shrink:0;
+    }
+    .ai-chip:hover{
+      background: rgba(25,183,176,.20);
+      border-color: rgba(25,183,176,.40);
+      color:#fff;
+    }
+
+    .ai-input-wrap{
+      display:flex;
+      align-items:center;
+      padding:10px 14px;
+      gap:8px;
+      background: rgba(7,11,20,.85);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .ai-input-wrap input{
+      flex:1;
+      padding:9px 12px;
+      border-radius:12px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      color:#fff;
+      font-size:13.5px;
+      outline:none;
+    }
+    .ai-input-wrap input:focus{
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(25,183,176,.15);
+    }
+    .ai-input-wrap button{
+      width:38px; height:38px;
+      border-radius:12px;
+      border:none;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color:#001214;
+      display:grid; place-items:center;
+      cursor:pointer;
+      transition:.2s ease;
+      flex-shrink:0;
+    }
+    .ai-input-wrap button:hover{
+      transform: scale(1.05);
+      filter:brightness(1.08);
+    }
+
+    @media (max-width:520px){
+      .ai-chat-card{
+        right:10px;
+        bottom:76px;
+        width:calc(100vw - 20px);
+        height:74vh;
+      }
+    }
+
 
   </style>
 </head>
@@ -655,6 +939,10 @@
 
 <!-- Floating buttons -->
 <div class="fabs" aria-label="Floating actions">
+  <button class="fab fab-ai show" id="fabAI" aria-label="AI Assistant">
+    <span class="tip">AI Assistant • Instant Help</span>
+    <span class="spark">✨</span>
+  </button>
   <a class="fab" id="fabCall" href="tel:+918870908071" aria-label="Call Now">
     <span class="tip">Call Now</span>
     📞
@@ -663,6 +951,41 @@
     <span class="tip">WhatsApp</span>
     💬
   </a>
+</div>
+
+<!-- AI Assistant Chat Widget -->
+<div class="ai-chat-card" id="aiChatCard" aria-hidden="true" role="dialog" aria-label="GCREATORS AI Assistant">
+  <div class="ai-header">
+    <div class="ai-header-left">
+      <div class="ai-avatar">🤖</div>
+      <div>
+        <div class="ai-title">GCREATORS AI Assistant</div>
+        <div class="ai-status"><span class="ai-dot"></span> Online • Instant Replies</div>
+      </div>
+    </div>
+    <button class="ai-close-btn" id="aiCloseBtn" aria-label="Close AI Chat">✕</button>
+  </div>
+
+  <div class="ai-messages" id="aiMessages"></div>
+
+  <div class="ai-chips">
+    <button type="button" class="ai-chip" onclick="handleQuickChip('School & College Portals')">🎓 School Portal</button>
+    <button type="button" class="ai-chip" onclick="handleQuickChip('Store Management Software')">🏬 Store Software</button>
+    <button type="button" class="ai-chip" onclick="handleQuickChip('E-Commerce Website')">🛒 E-Commerce</button>
+    <button type="button" class="ai-chip" onclick="handleQuickChip('Website Cost & Timeline')">🌐 Website Cost</button>
+    <button type="button" class="ai-chip" onclick="handleQuickChip('Android Apps')">📱 Android Apps</button>
+    <button type="button" class="ai-chip" onclick="handleQuickChip('Talk to Gokul on WhatsApp')">💬 WhatsApp Us</button>
+  </div>
+
+  <form class="ai-input-wrap" id="aiForm" onsubmit="submitAiChat(event)">
+    <input type="text" id="aiInput" placeholder="Ask AI anything about our services..." autocomplete="off">
+    <button type="submit" id="aiSendBtn" aria-label="Send Message">
+      <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2.2">
+        <line x1="22" y1="2" x2="11" y2="13"></line>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+      </svg>
+    </button>
+  </form>
 </div>
 
 
@@ -807,6 +1130,222 @@
     marqueeContainer.addEventListener("touchend", ()=>{
       marqueeTrack.style.animationPlayState = "running";
     }, {passive:true});
+  }
+
+  // ===== AI ASSISTANT LOGIC =====
+  const aiChatCard = document.getElementById("aiChatCard");
+  const fabAI = document.getElementById("fabAI");
+  const aiCloseBtn = document.getElementById("aiCloseBtn");
+  const aiMessages = document.getElementById("aiMessages");
+  const aiInput = document.getElementById("aiInput");
+  let aiInitialized = false;
+
+  function toggleAiChat(){
+    const isOpen = aiChatCard.classList.toggle("open");
+    aiChatCard.setAttribute("aria-hidden", !isOpen);
+    if(isOpen){
+      if(!aiInitialized){
+        initAiChat();
+        aiInitialized = true;
+      }
+      setTimeout(()=> aiInput && aiInput.focus(), 250);
+    }
+  }
+
+  function closeAiChat(){
+    aiChatCard.classList.remove("open");
+    aiChatCard.setAttribute("aria-hidden", "true");
+  }
+
+  if(fabAI) fabAI.addEventListener("click", toggleAiChat);
+  if(aiCloseBtn) aiCloseBtn.addEventListener("click", closeAiChat);
+
+  function appendAiMessage(sender, text, actionButtons = []){
+    const msgDiv = document.createElement("div");
+    msgDiv.className = `ai-msg ${sender}`;
+
+    const textP = document.createElement("div");
+    textP.innerHTML = text.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
+    msgDiv.appendChild(textP);
+
+    if(actionButtons && actionButtons.length > 0){
+      const btnGroup = document.createElement("div");
+      btnGroup.style.display = "flex";
+      btnGroup.style.flexWrap = "wrap";
+      btnGroup.style.gap = "6px";
+      btnGroup.style.marginTop = "8px";
+
+      actionButtons.forEach(btn => {
+        const a = document.createElement("a");
+        a.className = "ai-action-btn";
+        a.innerHTML = btn.label;
+        if(btn.url){
+          a.href = btn.url;
+          if(btn.url.startsWith("http")) a.target = "_blank";
+        }
+        if(btn.onClick){
+          a.href = "javascript:void(0)";
+          a.onclick = (e)=>{ e.preventDefault(); btn.onClick(); };
+        }
+        btnGroup.appendChild(a);
+      });
+      msgDiv.appendChild(btnGroup);
+    }
+
+    aiMessages.appendChild(msgDiv);
+    aiMessages.scrollTop = aiMessages.scrollHeight;
+  }
+
+  function showAiTyping(){
+    const typingDiv = document.createElement("div");
+    typingDiv.className = "ai-msg bot ai-typing-indicator";
+    typingDiv.innerHTML = `<div class="ai-typing"><span></span><span></span><span></span></div>`;
+    aiMessages.appendChild(typingDiv);
+    aiMessages.scrollTop = aiMessages.scrollHeight;
+    return typingDiv;
+  }
+
+  function initAiChat(){
+    appendAiMessage("bot",
+      "Hello! 👋 I'm **GCREATORS AI Assistant**.\n\nI can give you instant replies about our:\n• 🎓 **School & College Web Portals**\n• 🏬 **Store Management & POS Software**\n• 🛒 **E-Commerce Stores**\n• 🌐 **Modern Websites**\n• 📱 **Android Apps**\n\nHow can I help your project today?",
+      [
+        { label: "💬 Chat on WhatsApp", url: "https://wa.me/918870908071?text=Hi%20GCREATORS,%20I%20need%20details%20about%20your%20services" },
+        { label: "📝 Request Quote", onClick: ()=>{ closeAiChat(); location.hash = "contact"; } }
+      ]
+    );
+  }
+
+  function handleQuickChip(promptText){
+    if(!aiChatCard.classList.contains("open")) toggleAiChat();
+    aiInput.value = promptText;
+    submitAiChat();
+  }
+
+  function getAiReply(rawUserMsg){
+    const q = rawUserMsg.toLowerCase().trim();
+
+    // 1. School / College Portal
+    if(q.includes("school") || q.includes("college") || q.includes("portal") || q.includes("student") || q.includes("attendance") || q.includes("admission") || q.includes("academic") || q.includes("fee")){
+      return {
+        text: "🎓 **School & College Web Portals by GCREATORS**:\n\nWe build custom, full-featured educational portals with:\n• **Student & Staff Management**: Online admissions, profiles, records\n• **Attendance Tracking**: Automated daily attendance with parent SMS/notices\n• **Online Fee Collection**: Integrated payment gateway & digital receipts\n• **Exams & Report Cards**: Automated marksheets & grade calculations\n• **Parent & Student Login**: Circulars, timetable, homework tracking\n\nWould you like a live demo or customized proposal for your institution?",
+        actions: [
+          { label: "💬 Inquire on WhatsApp", url: "https://wa.me/918870908071?text=Hello%20GCREATORS,%20I%20am%20interested%20in%20a%20School/College%20Web%20Portal" },
+          { label: "📝 Fill Inquiry Form", onClick: ()=>{ closeAiChat(); location.hash = "contact"; } }
+        ]
+      };
+    }
+
+    // 2. Store Management Software / POS
+    if(q.includes("store") || q.includes("management") || q.includes("billing") || q.includes("pos") || q.includes("inventory") || q.includes("stock") || q.includes("barcode") || q.includes("shop") || q.includes("retail")){
+      return {
+        text: "🏬 **Store Management & POS Software**:\n\nOur custom retail software empowers stores and supermarkets with:\n• **Superfast POS Billing**: Thermal printer support & GST invoicing\n• **Real-Time Inventory**: Automated stock deduction & low-stock alerts\n• **Barcode Support**: Generate and scan product barcodes\n• **Sales & Profit Reports**: Daily, monthly, and category-wise analytics\n• **Multi-Counter & Cloud Sync**: Seamless cashier & manager permissions\n\nReady to modernize your retail store?",
+        actions: [
+          { label: "💬 Inquire About Store Software", url: "https://wa.me/918870908071?text=Hello%20GCREATORS,%20I%20need%20details%20about%20Store%20Management%20Software" },
+          { label: "📞 Call +91 8870908071", url: "tel:+918870908071" }
+        ]
+      };
+    }
+
+    // 3. E-Commerce
+    if(q.includes("ecom") || q.includes("commerce") || q.includes("shop") || q.includes("cart") || q.includes("product") || q.includes("payment")){
+      return {
+        text: "🛒 **E-Commerce Online Stores**:\n\nWe design modern, high-converting online shopping websites:\n• **Catalog & Filter**: Product categories, search, variants & stock\n• **Cart & One-Page Checkout**: Frictionless customer experience\n• **Secure Payment Gateways**: UPI (Google Pay, PhonePe), Cards, Net Banking & COD\n• **Order Management**: Tracking, invoices, customer dashboard\n• **Mobile-First Design**: Lightning-fast speed on all smartphones.",
+        actions: [
+          { label: "💬 Plan Your E-Commerce Store", url: "https://wa.me/918870908071?text=Hello%20GCREATORS,%20I%20want%20to%20build%20an%20E-Commerce%20website" }
+        ]
+      };
+    }
+
+    // 4. Modern Website
+    if(q.includes("website") || q.includes("web design") || q.includes("landing") || q.includes("redesign")){
+      return {
+        text: "🌐 **Modern Website Development**:\n\nWe build sleek, responsive business websites that convert visitors into paying clients:\n• High-performance UI/UX with smooth animations\n• 100% mobile-friendly and search engine optimized (SEO)\n• WhatsApp chat and instant contact forms integrated\n• Domain, SSL & cloud hosting assistance included\n\nTypical turnaround is just **3 to 7 days**!",
+        actions: [
+          { label: "💬 Start Website Project", url: "https://wa.me/918870908071?text=Hello%20GCREATORS,%20I%20need%20a%20modern%20website" },
+          { label: "📝 Fill Form", onClick: ()=>{ closeAiChat(); location.hash = "contact"; } }
+        ]
+      };
+    }
+
+    // 5. Android Apps
+    if(q.includes("app") || q.includes("android") || q.includes("mobile") || q.includes("apk") || q.includes("playstore") || q.includes("play store")){
+      return {
+        text: "📱 **Android App Development**:\n\nFrom concept to Google Play Store:\n• Clean, modern Material UI\n• REST API backend & cloud database\n• Push notifications & offline local caching\n• Play Store submission & release management.",
+        actions: [
+          { label: "💬 Discuss App Idea", url: "https://wa.me/918870908071?text=Hello%20GCREATORS,%20I%20want%20to%20develop%20an%20Android%20app" }
+        ]
+      };
+    }
+
+    // 6. Pricing & Cost
+    if(q.includes("price") || q.includes("cost") || q.includes("how much") || q.includes("charge") || q.includes("budget") || q.includes("quote") || q.includes("rate")){
+      return {
+        text: "💰 **GCREATORS Transparent Pricing**:\n\nEvery project is tailored to your scope to give you the highest ROI:\n• **Business Websites**: Highly affordable flat-rate packages\n• **E-Commerce & Portals**: Customized milestones based on feature requirements\n• **Store Software**: Lifetime or flexible setup options\n\nShare your project details with Gokul for an instant, exact quote within 10 minutes!",
+        actions: [
+          { label: "💬 Get Instant Price Quote", url: "https://wa.me/918870908071?text=Hi%20Gokul,%20can%20you%20share%20pricing%20for%20my%20project?" },
+          { label: "📞 Call Directly", url: "tel:+918870908071" }
+        ]
+      };
+    }
+
+    // 7. Timeline / Delivery
+    if(q.includes("time") || q.includes("timeline") || q.includes("how long") || q.includes("duration") || q.includes("days") || q.includes("delivery")){
+      return {
+        text: "⏱️ **Project Delivery Timelines**:\n\n• **Landing Pages & Business Sites**: 3 to 7 days\n• **E-Commerce Websites**: 1 to 2 weeks\n• **School/College Portals**: 2 to 3 weeks\n• **Store Management Software**: 1 to 3 weeks\n• **Android Apps**: 2 to 4 weeks\n\nWe prioritize fast delivery without compromising quality!",
+        actions: [
+          { label: "💬 Check Availability on WhatsApp", url: "https://wa.me/918870908071?text=Hello%20Gokul,%20what%20is%20your%20current%20project%20timeline?" }
+        ]
+      };
+    }
+
+    // 8. Contact / Phone / Email / Gokul
+    if(q.includes("contact") || q.includes("phone") || q.includes("email") || q.includes("call") || q.includes("whatsapp") || q.includes("gokul") || q.includes("number")){
+      return {
+        text: "📞 **Contact GCREATORS Directly**:\n\n• **Phone / WhatsApp**: +91 8870908071\n• **Email**: nathgokul325@gmail.com\n• **Domain**: gcreators.tech\n\nGokul is available right now on WhatsApp to answer your questions!",
+        actions: [
+          { label: "💬 WhatsApp (+91 8870908071)", url: "https://wa.me/918870908071" },
+          { label: "📞 Call Now", url: "tel:+918870908071" }
+        ]
+      };
+    }
+
+    // 9. Greetings
+    if(q === "hi" || q === "hello" || q === "hey" || q.startsWith("hi ") || q.startsWith("hello ")){
+      return {
+        text: "Hi there! 👋 Glad to connect with you. How can GCREATORS assist your business or institution today? Feel free to ask about our web portals, store software, websites, or apps!",
+        actions: [
+          { label: "🎓 School Portal", onClick: ()=> handleQuickChip('School & College Portals') },
+          { label: "🏬 Store Software", onClick: ()=> handleQuickChip('Store Management Software') },
+          { label: "🛒 E-Commerce", onClick: ()=> handleQuickChip('E-Commerce Website') }
+        ]
+      };
+    }
+
+    // Default Fallback
+    return {
+      text: "Thanks for reaching out! GCREATORS specializes in custom digital engineering including **Web Portals for Schools & Colleges**, **Store Management & POS Software**, **E-Commerce**, **Android Apps**, and **Business Websites**.\n\nWould you like to connect directly with Gokul on WhatsApp to discuss your specific requirements?",
+      actions: [
+        { label: "💬 Chat with Gokul on WhatsApp", url: `https://wa.me/918870908071?text=${encodeURIComponent("Hello Gokul, I asked the AI: " + rawUserMsg)}` },
+        { label: "📝 Fill Contact Form", onClick: ()=>{ closeAiChat(); location.hash = "contact"; } }
+      ]
+    };
+  }
+
+  function submitAiChat(e){
+    if(e) e.preventDefault();
+    const userText = aiInput.value.trim();
+    if(!userText) return;
+
+    appendAiMessage("user", userText);
+    aiInput.value = "";
+
+    const indicator = showAiTyping();
+
+    setTimeout(()=>{
+      if(indicator && indicator.parentNode) indicator.parentNode.removeChild(indicator);
+      const reply = getAiReply(userText);
+      appendAiMessage("bot", reply.text, reply.actions);
+    }, 450);
   }
 
 </script>
