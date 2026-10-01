@@ -205,109 +205,13 @@
     .card-dark h3{margin:6px 0 10px;font-size:18px;font-weight:800}
     .card-dark p{margin:0;color: rgba(234,240,255,.80);line-height:1.65;font-size:14.5px}
 
-    /* ===== PORTFOLIO (Playlist Cards) ===== */
-    .portfolio{
-      background:#ffffff;
-      color:#0b1220;
-      padding:80px 0 85px;
-    }
-    .port-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
-    }
-    .port-head h2{
-      margin:0;
-      font-size: clamp(26px, 3vw, 38px);
-      color:#0b1220;
-    }
-    .port-sub{
-      margin:10px 0 0;
-      text-align:center;
-      color: rgba(10,16,34,.70);
-      font-size:14px;
-    }
-    .yt-sub{display:flex;justify-content:flex-end;}
-
-    .yt-cards{
-      margin-top:22px;
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:18px;
-    }
-    .yt-card{
-      background:#fff;
-      border-radius:18px;
-      overflow:hidden;
-      border:1px solid rgba(10,16,34,.10);
-      box-shadow: 0 16px 40px rgba(0,0,0,.12);
-      transition:.25s ease;
-      cursor:pointer;
-      outline:none;
-    }
-    .yt-card:hover{
-      transform: translateY(-6px);
-      box-shadow: 0 18px 55px rgba(0,0,0,.18);
-    }
-    .yt-thumb{
-      width:100%;
-      height:170px;
-      object-fit:cover;
-      display:block;
-      background:#000;
-    }
-    .yt-body{padding:14px 14px 16px}
-    .yt-title{
-      font-weight:900;
-      font-size:14.5px;
-      margin:0 0 8px;
-      color:#0b1220;
-      line-height:1.35;
-    }
-    .yt-meta{
-      margin:0;
-      color: rgba(10,16,34,.68);
-      font-size:12.8px;
-    }
-    .yt-status{
-      margin-top:18px;
-      text-align:center;
-      color: rgba(10,16,34,.70);
-      font-size:14px;
-    }
-
-    /* Mobile swipe slider */
     @media (max-width: 860px){
       .cards3{grid-template-columns:1fr}
-      .yt-cards{
-        display:flex;
-        gap:14px;
-        overflow-x:auto;
-        scroll-snap-type:x mandatory;
-        -webkit-overflow-scrolling: touch;
-        padding: 6px 6px 14px;
-        margin-left:-6px;
-        margin-right:-6px;
-      }
-      .yt-cards::-webkit-scrollbar{height:8px}
-      .yt-cards::-webkit-scrollbar-thumb{background:rgba(0,0,0,.18);border-radius:999px}
-      .yt-card{
-        min-width:86%;
-        max-width:86%;
-        flex:0 0 auto;
-        scroll-snap-align:center;
-      }
-    }
-    @media (max-width:520px){
-      .yt-card{min-width:92%;max-width:92%}
     }
 
     /* ===== CONTACT ===== */
     .contact{
       padding:80px 0;
-      border-top:1px solid var(--line);
       background:
         radial-gradient(900px 450px at 50% 10%, rgba(25,183,176,.10), transparent 60%),
         var(--bg);
@@ -419,33 +323,7 @@
       .fab{width:54px;height:54px}
     }
 
-    /* Video modal */
-    .yt-modal{position:fixed;inset:0;z-index:2000;display:none}
-    .yt-modal.show{display:block}
-    .yt-modal-backdrop{
-      position:absolute;inset:0;
-      background: rgba(0,0,0,.72);
-      backdrop-filter: blur(4px);
-    }
-    .yt-modal-card{
-      position:absolute; left:50%; top:50%;
-      transform: translate(-50%,-50%);
-      width:min(920px,92vw);
-      background:#0b1220;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:18px; overflow:hidden;
-      box-shadow: 0 24px 70px rgba(0,0,0,.55);
-    }
-    .yt-x{
-      position:absolute; right:12px; top:10px;
-      width:36px; height:36px;
-      border-radius:12px;
-      border:0; cursor:pointer;
-      background: rgba(255,255,255,.10);
-      color:#fff; z-index:2;
-    }
-    .yt-player{width:100%; aspect-ratio:16/9}
-    .yt-player iframe{width:100%; height:100%; border:0}
+
   </style>
 </head>
 
@@ -464,7 +342,6 @@
     <nav class="navlinks">
       <a class="nav-link active" href="#home">HOME</a>
       <a class="nav-link" href="#services">SERVICES</a>
-      <a class="nav-link" href="#portfolio">PORTFOLIO</a>
       <a class="nav-link" href="#contact">CONTACT</a>
     </nav>
   </div>
@@ -478,7 +355,7 @@
     <p class="hero-sub">
       Professional websites & Android apps with premium design, fast performance, and reliable support.
     </p>
-    <a class="hero-btn" href="#portfolio">View Portfolio</a>
+    <a class="hero-btn" href="#contact">Contact Us</a>
   </div>
 </section>
 
@@ -532,30 +409,6 @@
   </div>
 </section>
 
-<section id="portfolio" class="portfolio">
-  <div class="container">
-    <div class="port-head reveal">
-      <h2>Portfolio</h2>
-
-      <!-- YouTube Subscribe button -->
-      <div class="yt-sub">
-        <iframe
-          src="https://www.youtube.com/subscribe_embed?usegapi=1&channelid=UCkRfArvrzheW2E7b6SVT7vQ&layout=default&count=default"
-          title="Subscribe to GCREATORS"
-          style="border:0; height:80px; width:210px; overflow:hidden;"
-          scrolling="no"
-          allow="encrypted-media">
-        </iframe>
-      </div>
-    </div>
-
-    <div class="yt-cards reveal" id="ytCards" aria-label="Playlist videos"></div>
-    <div class="yt-status" id="ytStatus">Loading playlist videos…</div>
-    <div style="text-align:center;margin-top:22px;">
-      <button id="loadMoreBtn" class="btn primary" style="display:none;">Load More</button>
-    </div>
-  </div>
-</section>
 
 <section id="contact" class="contact">
   <div class="container">
@@ -606,14 +459,6 @@
   </a>
 </div>
 
-<!-- Modal -->
-<div class="yt-modal" id="ytModal" aria-hidden="true">
-  <div class="yt-modal-backdrop" id="ytClose"></div>
-  <div class="yt-modal-card" role="dialog" aria-modal="true" aria-label="YouTube video player">
-    <button class="yt-x" id="ytX" aria-label="Close video">✕</button>
-    <div class="yt-player" id="ytPlayer"></div>
-  </div>
-</div>
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
@@ -689,132 +534,6 @@
   window.addEventListener("scroll", toggleFabs, {passive:true});
   toggleFabs();
 
-  // ===== Playlist Cards (RSS) =====
-  const PLAYLIST_ID = "PLnZ7GINBOn9ya_seSNQNw3x08aH3Ncmlt";
-  const RSS_URL = `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`;
-  const RSS2JSON = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;
-
-  const ytCards = document.getElementById("ytCards");
-  const ytStatus = document.getElementById("ytStatus");
-  const ytModal = document.getElementById("ytModal");
-  const ytClose = document.getElementById("ytClose");
-  const ytX = document.getElementById("ytX");
-  const ytPlayer = document.getElementById("ytPlayer");
-
-  function formatDate(dateStr){
-    try{
-      const d = new Date(dateStr);
-      return d.toLocaleDateString(undefined, { year:"numeric", month:"short", day:"numeric" });
-    }catch(e){ return ""; }
-  }
-  function extractVideoId(link){
-    try{
-      const u = new URL(link);
-      return u.searchParams.get("v") || "";
-    }catch(e){ return ""; }
-  }
-  function openVideo(videoId){
-    ytPlayer.innerHTML = `
-      <iframe
-        src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1"
-        title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
-      </iframe>
-    `;
-    ytModal.classList.add("show");
-    ytModal.setAttribute("aria-hidden","false");
-  }
-  function closeVideo(){
-    ytModal.classList.remove("show");
-    ytModal.setAttribute("aria-hidden","true");
-    ytPlayer.innerHTML = "";
-  }
-  ytClose.addEventListener("click", closeVideo);
-  ytX.addEventListener("click", closeVideo);
-  window.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeVideo(); });
-
-  
-  let allVideos = [];
-  let visibleCount = 6;
-
-  async function loadPlaylistCards(){
-    if(!ytCards || !ytStatus) return;
-
-    ytStatus.style.display="block";
-    ytStatus.textContent="Loading playlist videos…";
-
-    try{
-      const res = await fetch(RSS2JSON, { cache:"no-store" });
-      if(!res.ok) throw new Error("Fetch failed");
-      const data = await res.json();
-
-      allVideos = data.items || [];
-      if(!allVideos.length) throw new Error("No videos found");
-
-      renderVideos();
-      ytStatus.style.display="none";
-
-      // Auto-scroll to newest
-      const newest = ytCards.querySelector(".yt-card");
-      const portfolioSection = document.getElementById("portfolio");
-      if(newest && portfolioSection){
-        const onceIO = new IntersectionObserver((entries)=>{
-          entries.forEach(entry=>{
-            if(entry.isIntersecting){
-              newest.scrollIntoView({ behavior:"smooth", block:"nearest", inline:"start" });
-              onceIO.disconnect();
-            }
-          });
-        }, { threshold: 0.35 });
-        onceIO.observe(portfolioSection);
-      }
-
-    }catch(err){
-      ytStatus.style.display="block";
-      ytStatus.textContent="Unable to load playlist videos right now. Please try again later.";
-      console.warn(err);
-    }
-  }
-
-  function renderVideos(){
-    const slice = allVideos.slice(0, visibleCount);
-
-    ytCards.innerHTML = slice.map((v)=>{
-      const id = extractVideoId(v.link);
-      const thumb = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-      const date = formatDate(v.pubDate);
-      return `
-        <article class="yt-card" data-vid="${id}" tabindex="0">
-          <img class="yt-thumb" src="${thumb}" alt="${v.title}" loading="lazy">
-          <div class="yt-body">
-            <h3 class="yt-title">${v.title}</h3>
-            <p class="yt-meta">${date}</p>
-          </div>
-        </article>
-      `;
-    }).join("");
-
-    ytCards.querySelectorAll(".yt-card").forEach(card=>{
-      const id = card.getAttribute("data-vid");
-      card.onclick = ()=> openVideo(id);
-      card.onkeydown = (e)=>{ if(e.key==="Enter") openVideo(id); };
-    });
-
-    const btn = document.getElementById("loadMoreBtn");
-    if(visibleCount < allVideos.length){
-      btn.style.display = "inline-flex";
-    }else{
-      btn.style.display = "none";
-    }
-  }
-
-  document.getElementById("loadMoreBtn")?.addEventListener("click", ()=>{
-    visibleCount += 6;
-    renderVideos();
-  });
-
-  loadPlaylistCards();
 </script>
 
 </body>
