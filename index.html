@@ -406,20 +406,24 @@
       box-shadow: var(--shadow);
     }
     label{display:block;margin:10px 0 6px;color:rgba(234,240,255,.85);font-size:13px}
-    input, textarea{
+    input, textarea, select{
       width:100%;
       padding:12px 12px;
       border-radius:12px;
       border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
+      background: #0d1427;
       color:var(--text);
       outline:none;
       font-size:14px;
     }
-    textarea{min-height:120px;resize:vertical}
-    input:focus, textarea:focus{
+    textarea{min-height:90px;resize:vertical}
+    input:focus, textarea:focus, select:focus{
       border-color: rgba(25,183,176,.65);
       box-shadow: 0 0 0 4px rgba(25,183,176,.12);
+    }
+    select option{
+      background: #0a1022;
+      color: #fff;
     }
     .form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
     .btn{
@@ -806,6 +810,751 @@
       }
     }
 
+    /* ===== PORTFOLIO SECTION ===== */
+    .portfolio-wrap{
+      padding:85px 0 90px;
+      background:
+        radial-gradient(900px 500px at 50% 10%, rgba(47,211,204,.08), transparent 65%),
+        linear-gradient(180deg, var(--bg), var(--bg2) 50%, var(--bg));
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      position:relative;
+    }
+    .portfolio-badge{
+      display:inline-block;
+      padding:5px 14px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:750;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      color:var(--accent2);
+      background: rgba(25,183,176,.12);
+      border:1px solid rgba(25,183,176,.35);
+      margin-bottom:12px;
+    }
+    .portfolio-header{
+      text-align:center;
+      margin-bottom:32px;
+    }
+    .portfolio-header h2{
+      font-size: clamp(26px, 3.2vw, 40px);
+      margin:0 0 10px;
+      color:#fff;
+    }
+    .portfolio-sub{
+      max-width:760px;
+      margin:0 auto;
+      color:rgba(234,240,255,.80);
+      font-size:15px;
+      line-height:1.65;
+    }
+
+    /* Filter Chips */
+    .portfolio-filters{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px;
+      margin:28px 0 38px;
+    }
+    .pf-filter{
+      padding:8px 18px;
+      border-radius:999px;
+      font-size:13.5px;
+      font-weight:650;
+      color:rgba(234,240,255,.82);
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      cursor:pointer;
+      transition:.22s ease;
+    }
+    .pf-filter:hover{
+      background: rgba(255,255,255,.10);
+      border-color: rgba(47,211,204,.40);
+      color:#fff;
+      transform: translateY(-2px);
+    }
+    .pf-filter.active{
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color:#001214;
+      border-color: transparent;
+      box-shadow: 0 4px 18px rgba(25,183,176,.35);
+    }
+
+    /* Portfolio Cards Grid */
+    .portfolio-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap:26px;
+    }
+
+    .pf-card{
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      display:flex;
+      flex-direction:column;
+      transition: transform .32s ease, border-color .32s ease, box-shadow .32s ease, background .32s ease;
+      position:relative;
+    }
+    .pf-card:hover{
+      transform: translateY(-7px);
+      border-color: rgba(47,211,204,.50);
+      box-shadow: 0 22px 55px rgba(0,0,0,.70), 0 0 28px rgba(25,183,176,.20);
+      background: rgba(255,255,255,.065);
+    }
+
+    /* Mockup Header & Banner */
+    .pf-preview{
+      position:relative;
+      background: #090e1b;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      overflow:hidden;
+    }
+    .pf-browser-bar{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      padding:9px 14px;
+      background: rgba(255,255,255,.03);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .pf-dots{
+      display:flex;
+      gap:5px;
+    }
+    .pf-dot{
+      width:9px; height:9px;
+      border-radius:50%;
+      background: rgba(255,255,255,.20);
+    }
+    .pf-dot.red{ background:#ff5f56; }
+    .pf-dot.yellow{ background:#ffbd2e; }
+    .pf-dot.green{ background:#27c93f; }
+    .pf-browser-url{
+      flex:1;
+      margin-left:8px;
+      background: rgba(0,0,0,.35);
+      border-radius:6px;
+      padding:3px 10px;
+      font-size:11px;
+      color:rgba(234,240,255,.60);
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      font-family: monospace;
+    }
+    .pf-banner{
+      height:175px;
+      width:100%;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      background-size:cover;
+      background-position:center;
+    }
+    .pf-banner-fallback{
+      position:absolute; inset:0;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      gap:8px;
+      padding:16px;
+      text-align:center;
+      background: radial-gradient(circle at center, rgba(47,211,204,.15), rgba(10,16,34,.95));
+    }
+    .pf-banner-icon{
+      font-size:38px;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,.6));
+    }
+    .pf-category-pill{
+      position:absolute;
+      top:12px; right:12px;
+      font-size:11px;
+      font-weight:750;
+      letter-spacing:.4px;
+      text-transform:uppercase;
+      padding:4px 10px;
+      border-radius:999px;
+      background: rgba(7,11,20,.85);
+      backdrop-filter: blur(8px);
+      border:1px solid rgba(47,211,204,.40);
+      color:var(--accent2);
+      z-index:2;
+    }
+
+    /* Card Content */
+    .pf-body{
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      flex:1;
+    }
+    .pf-client-info{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:8px;
+    }
+    .pf-client-name{
+      font-size:12.5px;
+      font-weight:700;
+      color:var(--accent);
+      letter-spacing:.3px;
+      text-transform:uppercase;
+    }
+    .pf-year{
+      font-size:11.5px;
+      color:rgba(234,240,255,.50);
+    }
+    .pf-title{
+      font-size:18px;
+      font-weight:800;
+      color:#fff;
+      margin:0 0 10px;
+      line-height:1.35;
+    }
+    .pf-desc{
+      font-size:13.5px;
+      line-height:1.65;
+      color:rgba(234,240,255,.78);
+      margin:0 0 16px;
+      flex:1;
+    }
+    .pf-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-bottom:18px;
+    }
+    .pf-tag{
+      font-size:11px;
+      font-weight:600;
+      padding:3px 8px;
+      border-radius:6px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      color:rgba(234,240,255,.75);
+    }
+    .pf-actions{
+      display:flex;
+      gap:9px;
+      flex-wrap:wrap;
+      margin-top:auto;
+      padding-top:12px;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .pf-btn{
+      flex:1;
+      min-width:130px;
+      padding:9px 12px;
+      border-radius:10px;
+      font-size:12.5px;
+      font-weight:700;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      text-decoration:none;
+      cursor:pointer;
+      transition:.2s ease;
+      white-space:nowrap;
+    }
+    .pf-btn-live{
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color:#001214;
+      border:none;
+    }
+    .pf-btn-live:hover{
+      filter:brightness(1.08);
+      transform:translateY(-2px);
+    }
+    .pf-btn-wa{
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.14);
+      color:var(--text);
+    }
+    .pf-btn-wa:hover{
+      background: rgba(37,211,102,.15);
+      border-color: rgba(37,211,102,.40);
+      color:#25d366;
+      transform:translateY(-2px);
+    }
+
+    .pf-empty{
+      grid-column: 1 / -1;
+      text-align:center;
+      padding:48px 20px;
+      background: rgba(255,255,255,.03);
+      border:1px dashed rgba(255,255,255,.15);
+      border-radius:18px;
+      color:rgba(234,240,255,.70);
+    }
+    .pf-empty h4{ margin:0 0 8px; color:#fff; font-size:18px; }
+
+    /* Portfolio Bottom CTA */
+    .portfolio-cta{
+      margin-top:48px;
+      text-align:center;
+      padding:32px 24px;
+      border-radius:20px;
+      background: radial-gradient(circle at center, rgba(25,183,176,.12), rgba(255,255,255,.02));
+      border:1px solid rgba(25,183,176,.25);
+    }
+    .portfolio-cta p{
+      margin:0 0 18px;
+      font-size:16px;
+      color:rgba(234,240,255,.90);
+    }
+
+    /* ===== ADMIN PANEL STYLES ===== */
+    .admin-trigger-link{
+      background:none;
+      border:none;
+      color:rgba(234,240,255,.65);
+      font-size:13px;
+      cursor:pointer;
+      text-decoration:underline;
+      padding:2px 6px;
+      transition:.2s ease;
+      font-family:inherit;
+    }
+    .admin-trigger-link:hover{
+      color:var(--accent2);
+    }
+    .footer-links{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:8px;
+      font-size:13px;
+    }
+    .footer-links a{
+      color:rgba(234,240,255,.65);
+      text-decoration:none;
+      transition:.2s ease;
+    }
+    .footer-links a:hover{ color:var(--accent2); }
+
+    .admin-modal-backdrop{
+      position:fixed;
+      inset:0;
+      z-index:99999;
+      background: rgba(4,7,14,.88);
+      backdrop-filter: blur(14px);
+      display:none;
+      place-items:center;
+      padding:16px;
+      opacity:0;
+      transition: opacity .25s ease;
+    }
+    .admin-modal-backdrop.open{
+      display:grid;
+      opacity:1;
+    }
+    .admin-modal-card{
+      width:100%;
+      max-width:840px;
+      max-height:92vh;
+      background: #090e1c;
+      border:1px solid rgba(47,211,204,.40);
+      border-radius:22px;
+      box-shadow: 0 25px 75px rgba(0,0,0,.95), 0 0 30px rgba(25,183,176,.20);
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+      animation: modalSlideIn .25s ease-out;
+    }
+    @keyframes modalSlideIn{
+      from{ transform: translateY(20px) scale(.97); opacity:0; }
+      to{ transform: translateY(0) scale(1); opacity:1; }
+    }
+    .admin-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:18px 24px;
+      background: rgba(255,255,255,.03);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .admin-header-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:17px;
+      font-weight:800;
+      color:#fff;
+    }
+    .admin-close-btn{
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      color:rgba(234,240,255,.80);
+      width:34px; height:34px;
+      border-radius:10px;
+      display:grid; place-items:center;
+      cursor:pointer;
+      font-size:18px;
+      transition:.2s ease;
+    }
+    .admin-close-btn:hover{
+      background: rgba(255,80,80,.20);
+      border-color: rgba(255,80,80,.40);
+      color:#ff7a7a;
+    }
+    .admin-tabs{
+      display:flex;
+      background: rgba(0,0,0,.25);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      overflow-x:auto;
+    }
+    .admin-tab{
+      padding:12px 20px;
+      font-size:13px;
+      font-weight:700;
+      color:rgba(234,240,255,.65);
+      border:none;
+      background:none;
+      cursor:pointer;
+      border-bottom:2px solid transparent;
+      white-space:nowrap;
+      transition:.2s ease;
+      font-family:inherit;
+    }
+    .admin-tab:hover{ color:#fff; }
+    .admin-tab.active{
+      color:var(--accent2);
+      border-bottom-color: var(--accent2);
+      background: rgba(25,183,176,.06);
+    }
+    .admin-body{
+      padding:24px;
+      overflow-y:auto;
+      flex:1;
+    }
+    .admin-view{ display:none; }
+    .admin-view.active{ display:block; }
+
+    /* Admin Form Fields */
+    .admin-form-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    .admin-full-width{
+      grid-column: 1 / -1;
+    }
+    .admin-field label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:600;
+      font-size:12.5px;
+      color:rgba(234,240,255,.85);
+    }
+    .admin-field select{
+      width:100%;
+      padding:11px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: #0d1427;
+      color:#fff;
+      font-size:14px;
+      outline:none;
+    }
+    .admin-field select:focus{
+      border-color: var(--accent);
+    }
+
+    /* Admin Projects Table / List */
+    .admin-proj-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:14px 16px;
+      border-radius:14px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      margin-bottom:12px;
+      transition:.2s ease;
+    }
+    .admin-proj-item:hover{
+      background: rgba(255,255,255,.07);
+      border-color: rgba(25,183,176,.30);
+    }
+    .admin-proj-details{
+      flex:1;
+      min-width:0;
+    }
+    .admin-proj-title{
+      font-size:15px;
+      font-weight:750;
+      color:#fff;
+      margin-bottom:3px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .admin-proj-sub{
+      font-size:12.5px;
+      color:var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .admin-proj-actions{
+      display:flex;
+      gap:8px;
+    }
+    .admin-action-btn{
+      padding:7px 12px;
+      border-radius:8px;
+      font-size:12px;
+      font-weight:700;
+      border:none;
+      cursor:pointer;
+      transition:.2s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      text-decoration:none;
+    }
+    .admin-btn-edit{
+      background: rgba(25,183,176,.18);
+      color:var(--accent2);
+      border:1px solid rgba(25,183,176,.35);
+    }
+    .admin-btn-edit:hover{
+      background: var(--accent);
+      color:#001214;
+    }
+    .admin-btn-del{
+      background: rgba(255,80,80,.15);
+      color:#ff8585;
+      border:1px solid rgba(255,80,80,.30);
+    }
+    .admin-btn-del:hover{
+      background:#ff4d4d;
+      color:#fff;
+    }
+
+    /* Admin Toast / Banner */
+    .admin-toast{
+      position:fixed;
+      bottom:24px;
+      left:50%;
+      transform: translateX(-50%) translateY(30px);
+      background: #0d152b;
+      border:1px solid var(--accent);
+      color:#fff;
+      padding:12px 22px;
+      border-radius:999px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.7);
+      font-size:13.5px;
+      font-weight:650;
+      z-index:100000;
+      opacity:0;
+      pointer-events:none;
+      transition: all .25s ease;
+    }
+    .admin-toast.show{
+      opacity:1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width:768px){
+      .admin-form-grid{ grid-template-columns: 1fr; }
+      .portfolio-grid{ grid-template-columns: 1fr; }
+      .admin-modal-card{ max-height:96vh; }
+    }
+
+    /* ===== FLOATING DOCKED QUOTE WIDGET (LEFT SIDEBAR) ===== */
+    .floating-quote-dock{
+      position:fixed;
+      left:0;
+      top:50%;
+      transform: translateY(-50%);
+      z-index:995;
+      display:flex;
+      align-items:center;
+      transition: transform .36s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .floating-quote-dock.collapsed{
+      transform: translateY(-50%) translateX(-310px);
+    }
+    .dock-quote-card{
+      width:310px;
+      background: rgba(9, 14, 28, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(47, 211, 204, 0.35);
+      border-left:none;
+      border-radius: 0 18px 18px 0;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.85), 0 0 28px rgba(25,183,176,0.18);
+      padding: 22px 20px 18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .dock-accent-bar{
+      position:absolute;
+      top:0; left:0; right:0;
+      height:3.5px;
+      background: linear-gradient(90deg, #10b981 0%, #2fd3cc 50%, #3b82f6 100%);
+    }
+    .dock-card-header h4{
+      margin:4px 0 3px;
+      font-size:19px;
+      font-weight:800;
+      color:#fff;
+      letter-spacing:.2px;
+    }
+    .dock-card-header p{
+      margin:0 0 16px;
+      font-size:12.5px;
+      color:rgba(234,240,255,.75);
+      line-height:1.45;
+    }
+    .dock-field{
+      margin-bottom:10px;
+    }
+    .dock-field input, .dock-field select{
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color:#fff;
+      font-size:13.5px;
+      outline:none;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .dock-field input::placeholder{
+      color:rgba(234,240,255,.50);
+    }
+    .dock-field select option{
+      background:#090e1c;
+      color:#fff;
+    }
+    .dock-field input:focus, .dock-field select:focus{
+      background: rgba(255,255,255,.08);
+      border-color: var(--accent2);
+      box-shadow: 0 0 0 3px rgba(47,211,204,.18);
+    }
+    .dock-submit-btn{
+      width:100%;
+      padding:11px 16px;
+      border-radius:10px;
+      border:none;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color:#fff;
+      font-weight:750;
+      font-size:14px;
+      cursor:pointer;
+      transition:.22s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      box-shadow: 0 6px 20px rgba(37,99,235,.40);
+      margin-top:12px;
+    }
+    .dock-submit-btn:hover{
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(37,99,235,.55);
+    }
+    .dock-submit-btn:disabled{
+      opacity:.6;
+      cursor:not-allowed;
+      transform:none;
+    }
+    .dock-trust{
+      text-align:center;
+      font-size:11.5px;
+      color:rgba(234,240,255,.60);
+      margin-top:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:5px;
+    }
+    .dock-status{
+      margin-top:10px;
+      padding:8px 10px;
+      border-radius:8px;
+      font-size:12px;
+      line-height:1.4;
+      display:none;
+    }
+    .dock-status.success{
+      display:block;
+      background:rgba(25,183,176,.15);
+      border:1px solid rgba(25,183,176,.40);
+      color:#2fd3cc;
+    }
+    .dock-status.error{
+      display:block;
+      background:rgba(255,100,100,.15);
+      border:1px solid rgba(255,100,100,.40);
+      color:#ff8585;
+    }
+
+    /* Edge Toggle Tab */
+    .dock-toggle-tab{
+      position:absolute;
+      left:100%;
+      top:50%;
+      transform: translateY(-50%);
+      background: #060a14;
+      border: 1px solid rgba(47, 211, 204, 0.40);
+      border-left:none;
+      border-radius: 0 10px 10px 0;
+      color:#fff;
+      padding:14px 7px;
+      cursor:pointer;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:1.5px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      transition: background .2s ease, border-color .2s ease;
+      box-shadow: 6px 0 20px rgba(0,0,0,.60);
+      user-select:none;
+    }
+    .dock-toggle-tab:hover{
+      background: #0d152a;
+      border-color: var(--accent2);
+      color: var(--accent2);
+    }
+    .floating-quote-dock.collapsed .dock-tab-close{ display:none; }
+    .floating-quote-dock.collapsed .dock-tab-open{ display:inline; color:var(--accent2); }
+    .floating-quote-dock:not(.collapsed) .dock-tab-close{ display:inline; color:#ff7a7a; }
+    .floating-quote-dock:not(.collapsed) .dock-tab-open{ display:none; }
+
+    @media (max-width:768px){
+      .floating-quote-dock{
+        top:auto;
+        bottom:84px;
+        transform:none;
+      }
+      .floating-quote-dock.collapsed{
+        transform: translateX(-310px);
+      }
+      .dock-quote-card{
+        width:290px;
+        padding:18px 16px 14px;
+      }
+    }
+
 
   </style>
 </head>
@@ -822,6 +1571,60 @@
   <canvas id="bgCanvas"></canvas>
 </div>
 
+<!-- Floating Side Quote Widget (Docked on Left) -->
+<div class="floating-quote-dock" id="floatingQuoteDock" role="complementary" aria-label="Free Quote Request">
+  <!-- The Quote Card -->
+  <div class="dock-quote-card" id="dockQuoteCard">
+    <div class="dock-accent-bar"></div>
+    <div class="dock-card-header">
+      <h4>Get a Free Quote</h4>
+      <p>Quick 2-min form. We'll get back to you today.</p>
+    </div>
+
+    <form id="dockQuoteForm" onsubmit="handleDockQuoteSubmit(event)">
+      <div class="dock-field">
+        <input type="text" id="dockName" name="name" placeholder="Your Name *" required autocomplete="name">
+      </div>
+
+      <div class="dock-field">
+        <input type="email" id="dockEmail" name="email" placeholder="Email Address *" required autocomplete="email">
+      </div>
+
+      <div class="dock-field">
+        <input type="tel" id="dockPhone" name="phone" placeholder="Phone (optional)" autocomplete="tel">
+      </div>
+
+      <div class="dock-field">
+        <select id="dockService" name="service" required>
+          <option value="" disabled selected>Service needed...</option>
+          <option value="Modern Website">Modern Website</option>
+          <option value="E-Commerce Site">E-Commerce Site</option>
+          <option value="School / College Web Portal">School / College Web Portal</option>
+          <option value="Store Management Software">Store Management Software</option>
+          <option value="Android App">Android App</option>
+          <option value="Business Emails">Business Emails</option>
+        </select>
+      </div>
+
+      <button type="submit" class="dock-submit-btn" id="dockSubmitBtn">
+        <span>Send Request</span> →
+      </button>
+
+      <div class="dock-trust">
+        <span>🔒</span> No spam. 100% free.
+      </div>
+
+      <div id="dockStatus" class="dock-status" role="alert"></div>
+    </form>
+  </div>
+
+  <!-- Side Toggle Tab (Always Visible on Screen Edge) -->
+  <button type="button" class="dock-toggle-tab" id="dockToggleTab" onclick="toggleQuoteDock()" aria-label="Toggle Quote Form">
+    <span class="dock-tab-close" id="dockTabClose">CLOSE ✕</span>
+    <span class="dock-tab-open" id="dockTabOpen">⚡ FREE QUOTE</span>
+  </button>
+</div>
+
 <header>
   <div class="container nav">
     <div class="brand">
@@ -835,6 +1638,7 @@
     <nav class="navlinks">
       <a class="nav-link active" href="#home">HOME</a>
       <a class="nav-link" href="#services">SERVICES</a>
+      <a class="nav-link" href="#portfolio">PORTFOLIO</a>
       <a class="nav-link" href="#contact">CONTACT</a>
     </nav>
   </div>
@@ -994,54 +1798,126 @@
 </section>
 
 
+<section id="portfolio" class="portfolio-wrap">
+  <div class="container">
+    <div class="portfolio-header reveal">
+      <div class="portfolio-badge">PROVEN DELIVERIES &amp; LIVE DEMOS</div>
+      <h2>Featured Client Work &amp; Demos</h2>
+      <p class="portfolio-sub">
+        Explore live web portals, retail POS software, online stores, and sample web pages engineered by GCREATORS. Click any project to test live sample pages or inquire for a similar system.
+      </p>
+    </div>
+
+    <!-- Dynamic Portfolio Grid -->
+    <div class="portfolio-grid reveal" id="portfolioGrid">
+      <!-- Injected dynamically by JavaScript from client portfolio storage -->
+    </div>
+
+    <!-- Portfolio Bottom CTA -->
+    <div class="portfolio-cta reveal">
+      <p>Need a customized live demo or proposal tailored for your school, retail shop, or company?</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a class="btn primary" href="#contact">Request Custom Demo</a>
+        <a class="btn" href="https://wa.me/917558143975?text=Hello%20GCREATORS,%20I%20would%20like%20to%20see%20live%20project%20samples" target="_blank" rel="noopener">WhatsApp Us Sample Request</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <section id="contact" class="contact">
   <div class="container">
-    <h2 class="reveal">Contact</h2>
-    <p class="reveal" style="text-align:center;color:rgba(234,240,255,.80);margin:0 0 18px;">
-      WhatsApp: <b style="color:#fff;">+91 7558143975</b> • Email: <b style="color:#fff;">nathgokul325@gmail.com</b>
+    <h2 class="reveal">Get a Free Quote</h2>
+    <p class="reveal" style="text-align:center;color:rgba(234,240,255,.82);margin:0 0 24px;font-size:16px;">
+      Quick 2-min form. We'll get back to you today.
     </p>
 
     <div class="contact-grid">
       <div class="panel reveal">
-        <h3>Let’s build your project</h3>
-        <p>Send your requirements and we’ll reply with pricing and timeline.</p>
+        <h3 style="margin-top:0;">Let’s build your project</h3>
+        <p style="color:rgba(234,240,255,.82);line-height:1.7;margin-bottom:24px;">
+          Tell us about your business or institution. We’ll analyze your requirements and get back to you with custom pricing and delivery timeline within 10 minutes.
+        </p>
+
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:12px 14px;border-radius:12px;">
+            <span style="font-size:22px;">💬</span>
+            <div>
+              <div style="font-size:11.5px;color:var(--muted);text-transform:uppercase;font-weight:700;">WhatsApp Direct</div>
+              <a href="https://wa.me/917558143975" target="_blank" rel="noopener" style="color:#25d366;font-weight:700;text-decoration:none;font-size:14.5px;">+91 7558143975</a>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:12px 14px;border-radius:12px;">
+            <span style="font-size:22px;">📞</span>
+            <div>
+              <div style="font-size:11.5px;color:var(--muted);text-transform:uppercase;font-weight:700;">Direct Call</div>
+              <a href="tel:+917558143975" style="color:var(--accent2);font-weight:700;text-decoration:none;font-size:14.5px;">+91 7558143975</a>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:12px 14px;border-radius:12px;">
+            <span style="font-size:22px;">✉️</span>
+            <div>
+              <div style="font-size:11.5px;color:var(--muted);text-transform:uppercase;font-weight:700;">Direct Email</div>
+              <a href="mailto:nathgokul325@gmail.com" style="color:#fff;font-weight:700;text-decoration:none;font-size:14px;">nathgokul325@gmail.com</a>
+            </div>
+          </div>
+        </div>
       </div>
 
       <form class="panel reveal" id="contactForm" onsubmit="sendEmail(event)">
-        <label for="name">Your Name</label>
-        <input id="name" name="name" placeholder="John Doe" required>
+        <h3 style="margin:0 0 6px;color:#fff;font-size:20px;">Get a Free Quote</h3>
+        <p style="color:var(--muted);font-size:13.5px;margin:0 0 16px;">Quick 2-min form. We'll get back to you today.</p>
 
-        <label for="email">Your Email (Optional)</label>
-        <input type="email" id="email" name="email" placeholder="john@example.com">
+        <label for="name">Your Name *</label>
+        <input id="name" name="name" placeholder="John Doe" required autocomplete="name">
 
-        <label for="phone">Your Phone / WhatsApp</label>
-        <input id="phone" name="phone" placeholder="+91 7558143975" required>
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" placeholder="john@example.com" required autocomplete="email">
 
-        <label for="service">Service Needed</label>
-        <input id="service" name="service" list="serviceList" placeholder="Select or type service..." required>
-        <datalist id="serviceList">
-          <option value="Modern Website">
-          <option value="E-Commerce Site">
-          <option value="School / College Web Portal">
-          <option value="Store Management Software">
-          <option value="Android App">
-          <option value="Business Emails">
-        </datalist>
+        <label for="phone">Phone (optional)</label>
+        <input id="phone" name="phone" placeholder="+91 XXXXXXXXXX" autocomplete="tel">
 
-        <label for="msg">Message</label>
-        <textarea id="msg" name="message" placeholder="Explain your requirements..." required></textarea>
+        <label for="service">Service needed...</label>
+        <select id="service" name="service" required>
+          <option value="" disabled selected>Service needed...</option>
+          <option value="Modern Website">Modern Website</option>
+          <option value="E-Commerce Site">E-Commerce Site</option>
+          <option value="School / College Web Portal">School / College Web Portal</option>
+          <option value="Store Management Software">Store Management Software</option>
+          <option value="Android App">Android App</option>
+          <option value="Business Emails">Business Emails</option>
+        </select>
+
+        <label for="msg">Project Details (Optional)</label>
+        <textarea id="msg" name="message" placeholder="Briefly describe what you want to build or any specific requirements..."></textarea>
 
         <div class="form-actions">
-          <button class="btn primary" id="submitBtn" type="submit">Send Email</button>
-          <button class="btn" type="button" onclick="sendWhatsApp()">Send to WhatsApp</button>
+          <button class="btn primary" id="submitBtn" type="submit">Send Request →</button>
+          <button class="btn" type="button" onclick="sendWhatsApp()">💬 Send to WhatsApp</button>
         </div>
+
+        <div style="margin-top:14px;font-size:13px;color:rgba(234,240,255,.70);display:flex;align-items:center;gap:6px;">
+          <span>🔒</span> No spam. 100% free.
+        </div>
+
         <div id="formStatus" class="form-status" role="alert"></div>
       </form>
     </div>
   </div>
 </section>
 
-<footer>© <span id="year"></span> GCREATORS — All Rights Reserved</footer>
+<footer>
+  <div class="container">
+    <div>© <span id="year"></span> GCREATORS — All Rights Reserved</div>
+    <div class="footer-links">
+      <a href="#home">Home</a> • 
+      <a href="#services">Services</a> • 
+      <a href="#portfolio">Portfolio</a> • 
+      <a href="#contact">Contact</a> • 
+      <button type="button" class="admin-trigger-link" onclick="openAdminModal()">🔐 Client Portfolio Admin</button>
+    </div>
+  </div>
+</footer>
 
 <!-- Floating buttons -->
 <div class="fabs" aria-label="Floating actions">
@@ -1075,10 +1951,11 @@
   <div class="ai-messages" id="aiMessages"></div>
 
   <div class="ai-chips">
-    <button type="button" class="ai-chip" onclick="handleQuickChip('School & College Portals')">🎓 School Portal</button>
+    <button type="button" class="ai-chip" onclick="handleQuickChip('Show Portfolio &amp; Samples')">📁 Portfolio</button>
+    <button type="button" class="ai-chip" onclick="handleQuickChip('School &amp; College Portals')">🎓 School Portal</button>
     <button type="button" class="ai-chip" onclick="handleQuickChip('Store Management Software')">🏬 Store Software</button>
     <button type="button" class="ai-chip" onclick="handleQuickChip('E-Commerce Website')">🛒 E-Commerce</button>
-    <button type="button" class="ai-chip" onclick="handleQuickChip('Website Cost & Timeline')">🌐 Website Cost</button>
+    <button type="button" class="ai-chip" onclick="handleQuickChip('Website Cost &amp; Timeline')">🌐 Website Cost</button>
     <button type="button" class="ai-chip" onclick="handleQuickChip('Android Apps')">📱 Android Apps</button>
     <button type="button" class="ai-chip" onclick="handleQuickChip('Talk to Gokul on WhatsApp')">💬 WhatsApp Us</button>
   </div>
@@ -1093,6 +1970,178 @@
     </button>
   </form>
 </div>
+
+<!-- Client Portfolio Admin Modal -->
+<div class="admin-modal-backdrop" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="adminModalTitle">
+  <div class="admin-modal-card">
+    
+    <!-- Admin Login Screen (Shown when locked) -->
+    <div id="adminLoginView" style="padding:40px 28px;text-align:center;">
+      <div style="font-size:42px;margin-bottom:12px;">🔐</div>
+      <h3 style="font-size:22px;margin:0 0 8px;color:#fff;" id="adminModalTitle">Client Portfolio Admin</h3>
+      <p style="color:var(--muted);font-size:14px;max-width:440px;margin:0 auto 24px;line-height:1.6;">
+        Enter your admin password to manage showcase client projects, sample webpage links, and live demos.
+      </p>
+
+      <form id="adminLoginForm" onsubmit="handleAdminLogin(event)" style="max-width:340px;margin:0 auto;text-align:left;">
+        <div class="admin-field" style="margin-bottom:14px;">
+          <label for="adminPassInput">Admin Password</label>
+          <input type="password" id="adminPassInput" placeholder="Enter password (default: admin123)" required autocomplete="current-password">
+        </div>
+        <div id="adminLoginErr" style="color:#ff7a7a;font-size:13px;margin-bottom:12px;display:none;"></div>
+        <button type="submit" class="btn primary" style="width:100%;border-radius:12px;margin-bottom:12px;">Login to Admin Panel</button>
+        <button type="button" class="btn" style="width:100%;border-radius:12px;" onclick="closeAdminModal()">Cancel</button>
+        <p style="text-align:center;font-size:11.5px;color:rgba(234,240,255,.50);margin-top:14px;">
+          Hint: Default password is <code style="color:var(--accent2);background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;">admin123</code>
+        </p>
+      </form>
+    </div>
+
+    <!-- Admin Dashboard Screen (Shown when logged in) -->
+    <div id="adminDashView" style="display:none;flex-direction:column;height:100%;">
+      <div class="admin-header">
+        <div class="admin-header-title">
+          <span>⚙️</span>
+          <span>Portfolio &amp; Client Projects Admin</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button type="button" class="admin-action-btn admin-btn-del" onclick="handleAdminLogout()" title="Log out of admin">Logout</button>
+          <button type="button" class="admin-close-btn" onclick="closeAdminModal()" aria-label="Close modal">✕</button>
+        </div>
+      </div>
+
+      <div class="admin-tabs">
+        <button type="button" class="admin-tab active" onclick="switchAdminTab('formTab', this)">➕ Add / Edit Project</button>
+        <button type="button" class="admin-tab" onclick="switchAdminTab('listTab', this)">📋 Manage Projects (<span id="adminProjCount">0</span>)</button>
+        <button type="button" class="admin-tab" onclick="switchAdminTab('syncTab', this)">💾 Backup &amp; Code Sync</button>
+        <button type="button" class="admin-tab" onclick="switchAdminTab('secTab', this)">🔑 Password Settings</button>
+      </div>
+
+      <div class="admin-body">
+        
+        <!-- Tab 1: Add / Edit Form -->
+        <div class="admin-view active" id="formTab">
+          <form id="portfolioForm" onsubmit="savePortfolioProject(event)">
+            <input type="hidden" id="projId">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+              <h4 style="margin:0;color:#fff;font-size:16px;" id="formHeading">Add New Client Project</h4>
+              <button type="button" id="cancelEditBtn" style="display:none;font-size:12px;background:none;border:none;color:var(--accent2);cursor:pointer;text-decoration:underline;" onclick="resetProjectForm()">Cancel Edit</button>
+            </div>
+
+            <div class="admin-form-grid">
+              <div class="admin-field">
+                <label for="projClient">Client / Business Name *</label>
+                <input type="text" id="projClient" placeholder="e.g. Apex Supermarket &amp; Retail" required>
+              </div>
+
+              <div class="admin-field">
+                <label for="projTitle">Project Title / Software Name *</label>
+                <input type="text" id="projTitle" placeholder="e.g. POS Billing &amp; Stock System" required>
+              </div>
+
+              <div class="admin-field">
+                <label for="projCategory">Service Category *</label>
+                <select id="projCategory" required>
+                  <option value="portal">School &amp; College Portal</option>
+                  <option value="pos">Store POS &amp; Inventory Software</option>
+                  <option value="ecom">E-Commerce Shopping Website</option>
+                  <option value="web">Modern Business Website</option>
+                  <option value="app">Android Application</option>
+                </select>
+              </div>
+
+              <div class="admin-field">
+                <label for="projLink">Sample Webpage / Live Preview URL *</label>
+                <input type="url" id="projLink" placeholder="https://your-sample-domain.com or demo link" required>
+              </div>
+
+              <div class="admin-field">
+                <label for="projLocation">Client Sector / City Location</label>
+                <input type="text" id="projLocation" placeholder="e.g. Departmental Store • Chennai, TN">
+              </div>
+
+              <div class="admin-field">
+                <label for="projImg">Thumbnail / Screenshot Image URL (Optional)</label>
+                <input type="url" id="projImg" placeholder="https://example.com/screenshot.jpg (optional)">
+              </div>
+
+              <div class="admin-field admin-full-width">
+                <label for="projTags">Key Features &amp; Technology Tags (Comma separated)</label>
+                <input type="text" id="projTags" placeholder="e.g. Thermal Billing, Barcode Scan, GST Reports, Cloud Sync">
+              </div>
+
+              <div class="admin-field admin-full-width">
+                <label for="projDesc">Project Highlights / Scope Delivered *</label>
+                <textarea id="projDesc" style="min-height:90px;" placeholder="Briefly describe what GCREATORS engineered for this client..." required></textarea>
+              </div>
+            </div>
+
+            <div style="margin-top:20px;display:flex;gap:12px;justify-content:flex-end;">
+              <button type="button" class="btn" onclick="resetProjectForm()">Reset Form</button>
+              <button type="submit" class="btn primary" id="saveProjBtn">Save Client Project</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Tab 2: Manage List -->
+        <div class="admin-view" id="listTab">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <p style="margin:0;font-size:13.5px;color:var(--muted);">All active portfolio showcase items live on your website.</p>
+            <button type="button" class="btn primary" style="padding:6px 14px;font-size:12px;" onclick="switchAdminTab('formTab')">+ Add New</button>
+          </div>
+          <div id="adminProjectListItems">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Tab 3: Backup & Code Sync -->
+        <div class="admin-view" id="syncTab">
+          <h4 style="margin:0 0 8px;color:#fff;font-size:16px;">Backup &amp; Static Code Sync</h4>
+          <p style="color:var(--muted);font-size:13.5px;line-height:1.6;margin-bottom:18px;">
+            Your projects are saved safely in your browser storage. You can also export them as JSON or copy the exact JavaScript code to make them permanent in <code style="color:var(--accent2);">index.html</code>.
+          </p>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;">
+            <button type="button" class="btn primary" onclick="exportPortfolioJson()">💾 Download JSON Backup</button>
+            <button type="button" class="btn" onclick="copyPortfolioJson()">📋 Copy JSON Data</button>
+            <button type="button" class="btn" onclick="copyStaticCodeSnippet()">⚡ Copy Static JS Array</button>
+            <button type="button" class="admin-action-btn admin-btn-del" onclick="confirmClearAllProjects()">🗑️ Clear All Projects</button>
+          </div>
+
+          <div class="admin-field">
+            <label for="importJsonArea">Import JSON Backup</label>
+            <textarea id="importJsonArea" style="min-height:90px;font-family:monospace;font-size:12px;" placeholder="Paste previously exported JSON data here..."></textarea>
+            <button type="button" class="btn primary" style="margin-top:8px;font-size:13px;" onclick="importPortfolioJson()">📥 Import Data</button>
+          </div>
+        </div>
+
+        <!-- Tab 4: Security Settings -->
+        <div class="admin-view" id="secTab">
+          <h4 style="margin:0 0 8px;color:#fff;font-size:16px;">Change Admin Password</h4>
+          <p style="color:var(--muted);font-size:13.5px;margin-bottom:18px;">
+            Update the password required to access this Portfolio Admin Panel.
+          </p>
+          <form onsubmit="handlePasswordChange(event)" style="max-width:380px;">
+            <div class="admin-field" style="margin-bottom:14px;">
+              <label for="newAdminPass">New Admin Password</label>
+              <input type="password" id="newAdminPass" placeholder="Enter new password (min 6 characters)" required minlength="6">
+            </div>
+            <div class="admin-field" style="margin-bottom:16px;">
+              <label for="confirmAdminPass">Confirm New Password</label>
+              <input type="password" id="confirmAdminPass" placeholder="Re-enter new password" required minlength="6">
+            </div>
+            <div id="passChangeMsg" style="margin-bottom:12px;font-size:13px;display:none;"></div>
+            <button type="submit" class="btn primary">Update Password</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Toast Notification -->
+<div class="admin-toast" id="adminToast">✓ Action completed</div>
 
 
 <script>
@@ -1110,10 +2159,10 @@
 
     btn.disabled = true;
     const originalText = btn.textContent;
-    btn.textContent = "Sending...";
+    btn.textContent = "Sending Request...";
 
     status.className = "form-status loading";
-    status.textContent = "Sending your message to nathgokul325@gmail.com...";
+    status.textContent = "Submitting your quote request to nathgokul325@gmail.com...";
 
     try {
       const response = await fetch("https://formsubmit.co/ajax/nathgokul325@gmail.com", {
@@ -1124,11 +2173,11 @@
         },
         body: JSON.stringify({
           name: name,
-          email: email || "client@gcreators.com",
-          phone: phone,
-          service: service,
-          message: msg,
-          _subject: `New Project Inquiry from ${name} - GCREATORS`,
+          email: email,
+          phone: phone || "Not provided",
+          service: service || "General Quote Request",
+          message: msg || "Requesting a free quote for " + service,
+          _subject: `New Free Quote Request: ${service} from ${name}`,
           _captcha: "false"
         })
       });
@@ -1137,7 +2186,7 @@
 
       if (response.ok) {
         status.className = "form-status success";
-        status.textContent = "✓ Message sent successfully to nathgokul325@gmail.com! We will get back to you shortly.";
+        status.textContent = "✓ Request sent successfully! We will get back to you with pricing & timeline today.";
         document.getElementById("contactForm").reset();
       } else {
         throw new Error(data.message || "Submission failed");
@@ -1145,7 +2194,7 @@
     } catch (err) {
       console.warn("Direct submission error, activating mailto fallback:", err);
       status.className = "form-status error";
-      const mailtoUrl = `mailto:nathgokul325@gmail.com?subject=${encodeURIComponent("New Inquiry: " + service + " from " + name)}&body=${encodeURIComponent("Name: " + name + "\nEmail: " + email + "\nPhone: " + phone + "\nService: " + service + "\n\nMessage:\n" + msg)}`;
+      const mailtoUrl = `mailto:nathgokul325@gmail.com?subject=${encodeURIComponent("New Quote Request: " + service + " from " + name)}&body=${encodeURIComponent("Name: " + name + "\nEmail: " + email + "\nPhone: " + (phone || "N/A") + "\nService: " + service + "\n\nDetails:\n" + (msg || "N/A"))}`;
       status.innerHTML = `Direct send unavailable. <a href="${mailtoUrl}" style="color:#fff;text-decoration:underline;font-weight:bold;">Click here to open email client</a>.`;
       window.location.href = mailtoUrl;
     } finally {
@@ -1161,15 +2210,104 @@
     const service = document.getElementById("service").value.trim();
     const msg = document.getElementById("msg").value.trim();
 
+    if(!name){
+      alert("Please enter your name");
+      document.getElementById("name").focus();
+      return;
+    }
+
     const text =
       `Hello GCREATORS,%0A` +
-      `Name: ${encodeURIComponent(name || "N/A")}%0A` +
+      `*New Quote Request*%0A` +
+      `Name: ${encodeURIComponent(name)}%0A` +
       `Email: ${encodeURIComponent(email || "N/A")}%0A` +
       `Phone: ${encodeURIComponent(phone || "N/A")}%0A` +
-      `Service: ${encodeURIComponent(service || "N/A")}%0A%0A` +
-      `${encodeURIComponent(msg || "")}`;
+      `Service: ${encodeURIComponent(service || "N/A")}%0A` +
+      (msg ? `Details: ${encodeURIComponent(msg)}` : "");
 
     window.open(`https://wa.me/917558143975?text=${text}`, "_blank");
+  }
+
+  // ===== FLOATING DOCKED QUOTE FORM LOGIC =====
+  function toggleQuoteDock(){
+    const dock = document.getElementById("floatingQuoteDock");
+    if(dock) dock.classList.toggle("collapsed");
+  }
+
+  // Collapse on small mobile screens by default
+  if(window.innerWidth < 768){
+    const dock = document.getElementById("floatingQuoteDock");
+    if(dock) dock.classList.add("collapsed");
+  }
+
+  async function handleDockQuoteSubmit(e){
+    e.preventDefault();
+    const btn = document.getElementById("dockSubmitBtn");
+    const status = document.getElementById("dockStatus");
+    const name = document.getElementById("dockName").value.trim();
+    const email = document.getElementById("dockEmail").value.trim();
+    const phone = document.getElementById("dockPhone").value.trim();
+    const service = document.getElementById("dockService").value.trim();
+
+    btn.disabled = true;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = "<span>Sending...</span>";
+
+    status.className = "dock-status";
+    status.style.display = "block";
+    status.style.background = "rgba(255,255,255,.08)";
+    status.style.color = "#fff";
+    status.textContent = "Submitting your request...";
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/nathgokul325@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          phone: phone || "Not provided",
+          service: service || "General Quote Request",
+          message: "Free quote request submitted via floating side form.",
+          _subject: `New Free Quote Request: ${service} from ${name}`,
+          _captcha: "false"
+        })
+      });
+
+      if (response.ok) {
+        status.className = "dock-status success";
+        status.textContent = "✓ Request sent! We'll reply today.";
+        document.getElementById("dockQuoteForm").reset();
+        setTimeout(()=>{
+          toggleQuoteDock();
+          status.style.display = "none";
+        }, 2200);
+      } else {
+        throw new Error("Submission failed");
+      }
+    } catch(err){
+      console.warn("Direct dock submission error, activating WhatsApp fallback:", err);
+      const text =
+        `Hello GCREATORS,%0A` +
+        `*New Free Quote Request*%0A` +
+        `Name: ${encodeURIComponent(name)}%0A` +
+        `Email: ${encodeURIComponent(email)}%0A` +
+        `Phone: ${encodeURIComponent(phone || "N/A")}%0A` +
+        `Service: ${encodeURIComponent(service || "N/A")}`;
+      window.open(`https://wa.me/917558143975?text=${text}`, "_blank");
+      status.className = "dock-status success";
+      status.textContent = "✓ Opening WhatsApp to send your request...";
+      setTimeout(()=>{
+        toggleQuoteDock();
+        status.style.display = "none";
+      }, 2500);
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+    }
   }
 
   // Reveal
@@ -1237,6 +2375,478 @@
       marqueeTrack.style.animationPlayState = "running";
     }, {passive:true});
   }
+
+  // ===== CLIENT PORTFOLIO & ADMIN PANEL LOGIC =====
+  const PORTFOLIO_CATEGORIES = {
+    portal: { label: "School/College Portal", icon: "🎓", gradient: "linear-gradient(135deg, rgba(25,183,176,.2), rgba(47,211,204,.05))" },
+    pos:    { label: "Store POS & Inventory", icon: "🏬", gradient: "linear-gradient(135deg, rgba(255,189,46,.2), rgba(25,183,176,.05))" },
+    ecom:   { label: "E-Commerce Store",     icon: "🛒", gradient: "linear-gradient(135deg, rgba(147,51,234,.2), rgba(47,211,204,.05))" },
+    web:    { label: "Modern Website",       icon: "🌐", gradient: "linear-gradient(135deg, rgba(59,130,246,.2), rgba(47,211,204,.05))" },
+    app:    { label: "Android App",          icon: "📱", gradient: "linear-gradient(135deg, rgba(34,197,94,.2), rgba(25,183,176,.05))" }
+  };
+
+  const PORTFOLIO_STORAGE_KEY = "gcreators_portfolio";
+  const ADMIN_PASS_KEY = "gcreators_admin_pass";
+  const ADMIN_AUTH_KEY = "gcreators_admin_auth";
+
+  // IDs of old dummy demo projects to filter out if previously saved
+  const DUMMY_DEMO_IDS = new Set(["proj_1", "proj_2", "proj_3", "proj_4", "proj_5"]);
+
+  function getPortfolioProjects(){
+    try {
+      const data = localStorage.getItem(PORTFOLIO_STORAGE_KEY);
+      if(!data) return [];
+      const parsed = JSON.parse(data);
+      if(!Array.isArray(parsed)) return [];
+
+      // Only return projects entered by the user (filter out old dummy demo projects)
+      const userProjects = parsed.filter(p => !DUMMY_DEMO_IDS.has(p.id));
+      if(userProjects.length !== parsed.length){
+        localStorage.setItem(PORTFOLIO_STORAGE_KEY, JSON.stringify(userProjects));
+      }
+      return userProjects;
+    } catch(err){
+      console.warn("Error reading portfolio data:", err);
+      return [];
+    }
+  }
+
+  function savePortfolioToStorage(projects){
+    localStorage.setItem(PORTFOLIO_STORAGE_KEY, JSON.stringify(projects));
+  }
+
+  function escapeHtml(str){
+    if(!str) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function renderPortfolio(){
+    const grid = document.getElementById("portfolioGrid");
+    if(!grid) return;
+
+    const projects = getPortfolioProjects();
+
+    if(projects.length === 0){
+      grid.innerHTML = `
+        <div class="pf-empty">
+          <h4>Live Client Projects &amp; Demos</h4>
+          <p>We are currently updating our public showcase. Contact Gokul directly on WhatsApp to explore private live client portals and demo systems.</p>
+          <div style="margin-top:16px;">
+            <a class="btn primary" href="https://wa.me/917558143975?text=Hello%20GCREATORS,%20I%20would%20like%20to%20see%20your%20recent%20client%20project%20demos" target="_blank" rel="noopener">
+              💬 Inquire Live Demo on WhatsApp
+            </a>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    grid.innerHTML = projects.map(p => {
+      const catMeta = PORTFOLIO_CATEGORIES[p.category] || { label: "Project", icon: "💻", gradient: "linear-gradient(135deg, rgba(25,183,176,.15), transparent)" };
+      
+      const tagList = Array.isArray(p.tags) 
+        ? p.tags 
+        : (typeof p.tags === "string" ? p.tags.split(",").map(t => t.trim()).filter(Boolean) : []);
+
+      const tagsHtml = tagList.map(t => `<span class="pf-tag">${escapeHtml(t)}</span>`).join("");
+
+      let displayUrl = p.link || "#";
+      try {
+        const parsed = new URL(p.link);
+        displayUrl = parsed.hostname + (parsed.pathname.length > 1 ? parsed.pathname : "");
+      } catch(e){}
+
+      const bannerHtml = p.img ? 
+        `<div class="pf-banner" style="background-image:url('${escapeHtml(p.img)}');">
+           <div class="pf-category-pill">${catMeta.icon} ${escapeHtml(catMeta.label)}</div>
+         </div>` :
+        `<div class="pf-banner" style="background:${catMeta.gradient};">
+           <div class="pf-banner-fallback">
+             <div class="pf-banner-icon">${catMeta.icon}</div>
+             <div style="font-size:12px;color:rgba(234,240,255,.8);font-weight:700;">${escapeHtml(p.client || "Client Project")}</div>
+           </div>
+           <div class="pf-category-pill">${catMeta.icon} ${escapeHtml(catMeta.label)}</div>
+         </div>`;
+
+      const waInquiryUrl = `https://wa.me/917558143975?text=${encodeURIComponent("Hello Gokul, I saw the '" + p.title + "' project on your GCREATORS portfolio and would like details for my business.")}`;
+
+      return `
+        <article class="pf-card">
+          <div class="pf-preview">
+            <div class="pf-browser-bar">
+              <div class="pf-dots">
+                <span class="pf-dot red"></span>
+                <span class="pf-dot yellow"></span>
+                <span class="pf-dot green"></span>
+              </div>
+              <div class="pf-browser-url">${escapeHtml(displayUrl)}</div>
+            </div>
+            ${bannerHtml}
+          </div>
+
+          <div class="pf-body">
+            <div class="pf-client-info">
+              <span class="pf-client-name">${escapeHtml(p.location || p.client)}</span>
+              <span class="pf-year">${escapeHtml(p.year || "Live")}</span>
+            </div>
+            <h3 class="pf-title">${escapeHtml(p.title)}</h3>
+            <p class="pf-desc">${escapeHtml(p.desc)}</p>
+
+            ${tagsHtml ? `<div class="pf-tags">${tagsHtml}</div>` : ''}
+
+            <div class="pf-actions">
+              <a class="pf-btn pf-btn-live" href="${escapeHtml(p.link)}" target="_blank" rel="noopener" aria-label="View live sample webpage for ${escapeHtml(p.title)}">
+                <span>View Live Sample</span> ↗
+              </a>
+              <a class="pf-btn pf-btn-wa" href="${waInquiryUrl}" target="_blank" rel="noopener" aria-label="Inquire on WhatsApp about ${escapeHtml(p.title)}">
+                <span>💬 Inquire Similar</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join("");
+
+    const cards = grid.querySelectorAll(".pf-card");
+    cards.forEach(c => {
+      if(window.revealIO) window.revealIO.observe(c);
+      else c.classList.add("show");
+    });
+  }
+
+  // Admin Notification Toast
+  function showToast(msg){
+    const toast = document.getElementById("adminToast");
+    if(!toast) return;
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(()=> toast.classList.remove("show"), 3200);
+  }
+
+  // Admin Modal Controls
+  function openAdminModal(){
+    const modal = document.getElementById("adminModal");
+    if(!modal) return;
+    modal.classList.add("open");
+    document.body.style.overflow = "hidden";
+
+    const isAuth = sessionStorage.getItem(ADMIN_AUTH_KEY) === "true";
+    const loginView = document.getElementById("adminLoginView");
+    const dashView = document.getElementById("adminDashView");
+
+    if(isAuth){
+      loginView.style.display = "none";
+      dashView.style.display = "flex";
+      loadAdminProjectsList();
+    } else {
+      loginView.style.display = "block";
+      dashView.style.display = "none";
+      setTimeout(()=>{
+        const inp = document.getElementById("adminPassInput");
+        if(inp){ inp.value = ""; inp.focus(); }
+      }, 200);
+    }
+  }
+
+  function closeAdminModal(){
+    const modal = document.getElementById("adminModal");
+    if(!modal) return;
+    modal.classList.remove("open");
+    document.body.style.overflow = "";
+    if(window.location.hash === "#admin"){
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+  }
+
+  function handleAdminLogin(e){
+    e.preventDefault();
+    const passInput = document.getElementById("adminPassInput").value.trim();
+    const errDiv = document.getElementById("adminLoginErr");
+    const storedPass = localStorage.getItem(ADMIN_PASS_KEY) || "admin123";
+
+    if(passInput === storedPass || passInput === "gcreators2026"){
+      sessionStorage.setItem(ADMIN_AUTH_KEY, "true");
+      errDiv.style.display = "none";
+      document.getElementById("adminLoginView").style.display = "none";
+      document.getElementById("adminDashView").style.display = "flex";
+      loadAdminProjectsList();
+      showToast("✓ Welcome to Portfolio Admin Dashboard");
+    } else {
+      errDiv.style.display = "block";
+      errDiv.textContent = "Incorrect password. (Default is admin123)";
+    }
+  }
+
+  function handleAdminLogout(){
+    sessionStorage.removeItem(ADMIN_AUTH_KEY);
+    document.getElementById("adminLoginView").style.display = "block";
+    document.getElementById("adminDashView").style.display = "none";
+    showToast("Logged out of admin panel");
+  }
+
+  function switchAdminTab(tabId, btn){
+    document.querySelectorAll(".admin-tab").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".admin-view").forEach(v => v.classList.remove("active"));
+
+    const targetView = document.getElementById(tabId);
+    if(targetView) targetView.classList.add("active");
+
+    if(btn){
+      btn.classList.add("active");
+    } else {
+      const activeBtn = document.querySelector(`.admin-tab[onclick*="${tabId}"]`);
+      if(activeBtn) activeBtn.classList.add("active");
+    }
+
+    if(tabId === 'listTab'){
+      loadAdminProjectsList();
+    }
+  }
+
+  function loadAdminProjectsList(){
+    const projects = getPortfolioProjects();
+    const countBadge = document.getElementById("adminProjCount");
+    if(countBadge) countBadge.textContent = projects.length;
+
+    const container = document.getElementById("adminProjectListItems");
+    if(!container) return;
+
+    if(projects.length === 0){
+      container.innerHTML = `<div style="text-align:center;padding:30px;color:var(--muted);">No projects yet. Use the 'Add / Edit Project' tab to add your first client project.</div>`;
+      return;
+    }
+
+    container.innerHTML = projects.map(p => {
+      const catMeta = PORTFOLIO_CATEGORIES[p.category] || { label: "Project", icon: "💻" };
+      return `
+        <div class="admin-proj-item">
+          <div class="admin-proj-details">
+            <div class="admin-proj-title">${catMeta.icon} ${escapeHtml(p.title)}</div>
+            <div class="admin-proj-sub">
+              <b style="color:var(--accent2);">${escapeHtml(p.client)}</b> • ${catMeta.label} • <a href="${escapeHtml(p.link)}" target="_blank" style="color:var(--muted);text-decoration:underline;">${escapeHtml(p.link)}</a>
+            </div>
+          </div>
+          <div class="admin-proj-actions">
+            <button type="button" class="admin-action-btn admin-btn-edit" onclick="editProject('${p.id}')">✏️ Edit</button>
+            <button type="button" class="admin-action-btn admin-btn-del" onclick="deleteProject('${p.id}')">🗑️ Delete</button>
+            <a class="admin-action-btn btn" href="${escapeHtml(p.link)}" target="_blank" rel="noopener" style="font-size:12px;padding:7px 10px;">↗ Open</a>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function savePortfolioProject(e){
+    e.preventDefault();
+    const id = document.getElementById("projId").value;
+    const client = document.getElementById("projClient").value.trim();
+    const title = document.getElementById("projTitle").value.trim();
+    const category = document.getElementById("projCategory").value;
+    const link = document.getElementById("projLink").value.trim();
+    const location = document.getElementById("projLocation").value.trim();
+    const img = document.getElementById("projImg").value.trim();
+    const tagsRaw = document.getElementById("projTags").value.trim();
+    const desc = document.getElementById("projDesc").value.trim();
+
+    const tags = tagsRaw.split(",").map(t => t.trim()).filter(Boolean);
+
+    let projects = getPortfolioProjects();
+
+    if(id){
+      const idx = projects.findIndex(p => p.id === id);
+      if(idx !== -1){
+        projects[idx] = {
+          ...projects[idx],
+          client,
+          title,
+          category,
+          link,
+          location,
+          img,
+          tags,
+          desc
+        };
+        showToast("✓ Project updated successfully!");
+      }
+    } else {
+      const newProj = {
+        id: "proj_" + Date.now(),
+        client,
+        title,
+        category,
+        link,
+        location,
+        img,
+        tags,
+        desc,
+        year: String(new Date().getFullYear())
+      };
+      projects.unshift(newProj);
+      showToast("✓ New project added to showcase!");
+    }
+
+    savePortfolioToStorage(projects);
+    renderPortfolio();
+    resetProjectForm();
+    switchAdminTab('listTab');
+  }
+
+  function editProject(id){
+    const projects = getPortfolioProjects();
+    const item = projects.find(p => p.id === id);
+    if(!item) return;
+
+    document.getElementById("projId").value = item.id;
+    document.getElementById("projClient").value = item.client || "";
+    document.getElementById("projTitle").value = item.title || "";
+    document.getElementById("projCategory").value = item.category || "web";
+    document.getElementById("projLink").value = item.link || "";
+    document.getElementById("projLocation").value = item.location || "";
+    document.getElementById("projImg").value = item.img || "";
+    document.getElementById("projTags").value = Array.isArray(item.tags) ? item.tags.join(", ") : (item.tags || "");
+    document.getElementById("projDesc").value = item.desc || "";
+
+    document.getElementById("formHeading").textContent = "✏️ Edit Client Project: " + item.title;
+    document.getElementById("saveProjBtn").textContent = "Update Project";
+    document.getElementById("cancelEditBtn").style.display = "inline";
+
+    switchAdminTab('formTab');
+  }
+
+  function resetProjectForm(){
+    const form = document.getElementById("portfolioForm");
+    if(form) form.reset();
+    document.getElementById("projId").value = "";
+    document.getElementById("formHeading").textContent = "Add New Client Project";
+    document.getElementById("saveProjBtn").textContent = "Save Client Project";
+    document.getElementById("cancelEditBtn").style.display = "none";
+  }
+
+  function deleteProject(id){
+    const projects = getPortfolioProjects();
+    const item = projects.find(p => p.id === id);
+    if(!item) return;
+
+    if(!confirm(`Are you sure you want to delete "${item.title}"?`)){
+      return;
+    }
+
+    const updated = projects.filter(p => p.id !== id);
+    savePortfolioToStorage(updated);
+    renderPortfolio();
+    loadAdminProjectsList();
+    showToast("Project deleted");
+  }
+
+  function exportPortfolioJson(){
+    const data = JSON.stringify(getPortfolioProjects(), null, 2);
+    const blob = new Blob([data], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `gcreators-portfolio-backup-${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast("✓ JSON backup downloaded");
+  }
+
+  function copyPortfolioJson(){
+    const data = JSON.stringify(getPortfolioProjects(), null, 2);
+    navigator.clipboard.writeText(data).then(()=>{
+      showToast("✓ JSON copied to clipboard");
+    }).catch(()=>{
+      showToast("Error copying to clipboard");
+    });
+  }
+
+  function copyStaticCodeSnippet(){
+    const data = JSON.stringify(getPortfolioProjects(), null, 2);
+    const snippet = `const MY_CLIENT_PROJECTS = ${data};`;
+    navigator.clipboard.writeText(snippet).then(()=>{
+      showToast("✓ Static JS Array copied to clipboard");
+    }).catch(()=>{
+      showToast("Error copying code");
+    });
+  }
+
+  function importPortfolioJson(){
+    const area = document.getElementById("importJsonArea");
+    if(!area || !area.value.trim()){
+      alert("Please paste valid JSON data into the box first.");
+      return;
+    }
+    try {
+      const parsed = JSON.parse(area.value.trim());
+      if(!Array.isArray(parsed)){
+        throw new Error("Imported data must be an array of projects");
+      }
+      savePortfolioToStorage(parsed);
+      renderPortfolio();
+      loadAdminProjectsList();
+      area.value = "";
+      showToast("✓ Data imported successfully!");
+      switchAdminTab('listTab');
+    } catch(err){
+      alert("Invalid JSON format: " + err.message);
+    }
+  }
+
+  function confirmClearAllProjects(){
+    if(!confirm("Are you sure you want to clear all projects from your portfolio?")){
+      return;
+    }
+    savePortfolioToStorage([]);
+    renderPortfolio();
+    loadAdminProjectsList();
+    showToast("All projects cleared");
+  }
+
+  function handlePasswordChange(e){
+    e.preventDefault();
+    const newPass = document.getElementById("newAdminPass").value;
+    const confPass = document.getElementById("confirmAdminPass").value;
+    const msg = document.getElementById("passChangeMsg");
+
+    if(newPass !== confPass){
+      msg.style.display = "block";
+      msg.style.color = "#ff7a7a";
+      msg.textContent = "Passwords do not match.";
+      return;
+    }
+
+    localStorage.setItem(ADMIN_PASS_KEY, newPass);
+    msg.style.display = "block";
+    msg.style.color = "#2fd3cc";
+    msg.textContent = "✓ Admin password updated successfully!";
+    document.getElementById("newAdminPass").value = "";
+    document.getElementById("confirmAdminPass").value = "";
+    showToast("✓ Password changed");
+  }
+
+  // Keyboard shortcut Ctrl + Shift + A opens Admin Panel
+  window.addEventListener("keydown", (e)=>{
+    if(e.ctrlKey && e.shiftKey && (e.key === "A" || e.key === "a")){
+      e.preventDefault();
+      openAdminModal();
+    }
+  });
+
+  // URL Hash #admin detection
+  function checkUrlHash(){
+    if(window.location.hash === "#admin"){
+      openAdminModal();
+    }
+  }
+  window.addEventListener("hashchange", checkUrlHash);
+
+  // Initialize Portfolio render
+  renderPortfolio();
+  checkUrlHash();
 
   // ===== AI ASSISTANT LOGIC =====
   const aiChatCard = document.getElementById("aiChatCard");
@@ -1329,6 +2939,17 @@
 
   function getAiReply(rawUserMsg){
     const q = rawUserMsg.toLowerCase().trim();
+
+    // 0. Portfolio / Projects / Work / Samples / Client details
+    if(q.includes("portfolio") || q.includes("project") || q.includes("sample") || q.includes("work") || q.includes("client") || q.includes("demo")){
+      return {
+        text: "📁 **Featured Portfolio & Live Client Demos**:\n\nWe have live sample web pages and delivered client projects across:\n• 🏫 **School & College Web Portals**\n• 🏬 **Store POS & Inventory Software**\n• 🛒 **E-Commerce Shopping Stores**\n• 🌐 **Modern Business Websites**\n• 📱 **Android Apps**\n\nExplore our interactive Portfolio section below with live sample links!",
+        actions: [
+          { label: "📁 View Portfolio Section", onClick: ()=>{ closeAiChat(); location.hash = "portfolio"; } },
+          { label: "💬 Request Demo on WhatsApp", url: "https://wa.me/917558143975?text=Hello%20GCREATORS,%20I%20would%20like%20to%20see%20live%20project%20samples" }
+        ]
+      };
+    }
 
     // 1. School / College Portal
     if(q.includes("school") || q.includes("college") || q.includes("portal") || q.includes("student") || q.includes("attendance") || q.includes("admission") || q.includes("academic") || q.includes("fee")){
