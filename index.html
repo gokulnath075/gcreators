@@ -1367,6 +1367,51 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    /* Admin Deploy & Live Sync Styles */
+    .admin-deploy-card{
+      background: linear-gradient(135deg, rgba(25,183,176,.10), rgba(15,23,42,.65));
+      border: 1px solid rgba(47,211,204,.35);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 18px;
+    }
+    .admin-deploy-card h5{
+      margin: 0 0 6px;
+      font-size: 14.5px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .admin-deploy-step{
+      display: flex;
+      gap: 10px;
+      font-size: 12.5px;
+      color: rgba(234,240,255,.8);
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .admin-step-num{
+      background: var(--accent);
+      color: #070b14;
+      font-weight: 800;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 11px;
+    }
+    .admin-publish-alert{
+      background: rgba(25,183,176,.12);
+      border: 1px solid rgba(47,211,204,.35);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+    }
+
     @media (max-width:768px){
       .admin-form-grid{ grid-template-columns: 1fr; }
       .portfolio-grid{ grid-template-columns: 1fr; }
@@ -2096,13 +2141,55 @@
 
         <!-- Tab 3: Backup & Code Sync -->
         <div class="admin-view" id="syncTab">
-          <h4 style="margin:0 0 8px;color:#fff;font-size:16px;">Backup &amp; Static Code Sync</h4>
+          <h4 style="margin:0 0 8px;color:#fff;font-size:16px;">🚀 Live Website Deploy &amp; Permanent Sync</h4>
           <p style="color:var(--muted);font-size:13.5px;line-height:1.6;margin-bottom:18px;">
-            Your projects are saved safely in your browser storage. You can also export them as JSON or copy the exact JavaScript code to make them permanent in <code style="color:var(--accent2);">index.html</code>.
+            Projects you add or edit in this admin panel are stored locally in your browser. To make them permanently visible on <b style="color:#fff;">gcreators.vercel.app</b> for all visitors on any device, use either option below:
           </p>
 
+          <!-- Option A: 1-Click Download Updated index.html -->
+          <div class="admin-deploy-card">
+            <h5><span>📥</span> Option A: 1-Click Download &amp; Upload to GitHub (Recommended)</h5>
+            <p style="font-size:12.5px;color:rgba(234,240,255,.8);margin:0 0 12px;line-height:1.5;">
+              Generates a clean <code style="color:var(--accent2);">index.html</code> file with all your projects baked permanently into the code.
+            </p>
+            <div class="admin-deploy-step">
+              <span class="admin-step-num">1</span>
+              <span>Click <b style="color:#fff;">"Download Updated index.html"</b> below to save the file.</span>
+            </div>
+            <div class="admin-deploy-step">
+              <span class="admin-step-num">2</span>
+              <span>Open <a href="https://github.com/gokulnath075/gcreators/upload/main" target="_blank" rel="noopener" style="color:var(--accent2);text-decoration:underline;font-weight:700;">github.com/gokulnath075/gcreators</a>, drag and drop the downloaded <code style="color:var(--accent2);">index.html</code>, and click <b>"Commit changes"</b>.</span>
+            </div>
+            <div class="admin-deploy-step">
+              <span class="admin-step-num">3</span>
+              <span><b>Vercel auto-deploys within 10 seconds!</b> Refresh <a href="https://gcreators.vercel.app" target="_blank" rel="noopener" style="color:var(--accent2);text-decoration:underline;">gcreators.vercel.app</a> on any phone or PC to see your updated showcase live!</span>
+            </div>
+            <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+              <button type="button" class="btn primary" onclick="downloadUpdatedIndexHtml()">📥 Download Updated index.html</button>
+              <a class="btn" href="https://github.com/gokulnath075/gcreators/upload/main" target="_blank" rel="noopener">↗ Open GitHub Upload Page</a>
+            </div>
+          </div>
+
+          <!-- Option B: Direct GitHub API Instant Deploy -->
+          <div class="admin-deploy-card" style="border-color:rgba(59,130,246,.35);background:linear-gradient(135deg, rgba(59,130,246,.10), rgba(15,23,42,.65));">
+            <h5><span>⚡</span> Option B: Instant 1-Click Publish via GitHub Token</h5>
+            <p style="font-size:12.5px;color:rgba(234,240,255,.8);margin:0 0 12px;line-height:1.5;">
+              Paste your GitHub Personal Access Token once. You can then publish live straight from this panel without downloading any files!
+            </p>
+            <div class="admin-field" style="margin-bottom:10px;">
+              <label for="ghTokenInput" style="font-size:12px;">GitHub Personal Access Token (repo scope)</label>
+              <input type="password" id="ghTokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="font-family:monospace;font-size:13px;">
+            </div>
+            <div id="ghPublishStatus" style="font-size:12.5px;margin-bottom:10px;display:none;padding:8px 12px;border-radius:8px;background:rgba(0,0,0,.35);"></div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+              <button type="button" class="btn primary" id="ghPublishBtn" onclick="publishDirectToGitHub()">🚀 1-Click Publish Live to GitHub &amp; Vercel</button>
+              <a href="https://github.com/settings/tokens/new?scopes=repo&description=GCREATORS+Portfolio+Admin" target="_blank" rel="noopener" style="font-size:12px;color:var(--accent2);text-decoration:underline;">Generate Free GitHub Token ↗</a>
+            </div>
+          </div>
+
+          <h5 style="margin:20px 0 10px;color:#fff;font-size:14px;">📦 JSON Backup &amp; Raw Data</h5>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;">
-            <button type="button" class="btn primary" onclick="exportPortfolioJson()">💾 Download JSON Backup</button>
+            <button type="button" class="btn" onclick="exportPortfolioJson()">💾 Download JSON Backup</button>
             <button type="button" class="btn" onclick="copyPortfolioJson()">📋 Copy JSON Data</button>
             <button type="button" class="btn" onclick="copyStaticCodeSnippet()">⚡ Copy Static JS Array</button>
             <button type="button" class="admin-action-btn admin-btn-del" onclick="confirmClearAllProjects()">🗑️ Clear All Projects</button>
@@ -2110,7 +2197,7 @@
 
           <div class="admin-field">
             <label for="importJsonArea">Import JSON Backup</label>
-            <textarea id="importJsonArea" style="min-height:90px;font-family:monospace;font-size:12px;" placeholder="Paste previously exported JSON data here..."></textarea>
+            <textarea id="importJsonArea" style="min-height:80px;font-family:monospace;font-size:12px;" placeholder="Paste previously exported JSON data here..."></textarea>
             <button type="button" class="btn primary" style="margin-top:8px;font-size:13px;" onclick="importPortfolioJson()">📥 Import Data</button>
           </div>
         </div>
@@ -2389,25 +2476,59 @@
   const ADMIN_PASS_KEY = "gcreators_admin_pass";
   const ADMIN_AUTH_KEY = "gcreators_admin_auth";
 
+  // Built-in permanent client projects baked directly into index.html
+  // These projects are ALWAYS visible to all visitors on any device, even on fresh visits or refresh.
+  const BUILTIN_PROJECTS = [
+    {
+      id: "proj_bigtrafficdata",
+      client: "Big Traffic Data",
+      title: "Big Traffic Data",
+      category: "web",
+      link: "https://bigtrafficdata.netlify.app",
+      img: "",
+      location: "HOSUR",
+      desc: "Turning real-world traffic movements into actionable insights for safer, smarter transport planning.",
+      tags: ["Modern Website", "Traffic Analytics", "Hosur"],
+      year: "2026"
+    }
+  ];
+
   // IDs of old dummy demo projects to filter out if previously saved
   const DUMMY_DEMO_IDS = new Set(["proj_1", "proj_2", "proj_3", "proj_4", "proj_5"]);
 
   function getPortfolioProjects(){
     try {
-      const data = localStorage.getItem(PORTFOLIO_STORAGE_KEY);
-      if(!data) return [];
-      const parsed = JSON.parse(data);
-      if(!Array.isArray(parsed)) return [];
+      const deletedIds = JSON.parse(localStorage.getItem("gcreators_deleted_projects") || "[]");
+      const deletedSet = new Set(deletedIds);
 
-      // Only return projects entered by the user (filter out old dummy demo projects)
-      const userProjects = parsed.filter(p => !DUMMY_DEMO_IDS.has(p.id));
-      if(userProjects.length !== parsed.length){
-        localStorage.setItem(PORTFOLIO_STORAGE_KEY, JSON.stringify(userProjects));
+      // Active built-ins (filtering out deleted ones and old dummy demos)
+      const activeBuiltins = BUILTIN_PROJECTS.filter(p => !deletedSet.has(p.id) && !DUMMY_DEMO_IDS.has(p.id));
+
+      const data = localStorage.getItem(PORTFOLIO_STORAGE_KEY);
+      if(!data){
+        return [...activeBuiltins];
       }
-      return userProjects;
+      const parsed = JSON.parse(data);
+      if(!Array.isArray(parsed) || parsed.length === 0){
+        return [...activeBuiltins];
+      }
+
+      // Filter out old dummy demo projects and deleted ones
+      const userProjects = parsed.filter(p => !DUMMY_DEMO_IDS.has(p.id) && !deletedSet.has(p.id));
+
+      // Merge active builtins if not already in user projects
+      const combined = [...userProjects];
+      activeBuiltins.forEach(bp => {
+        const alreadyExists = combined.some(p => p.id === bp.id || (p.title && bp.title && p.title.toLowerCase().trim() === bp.title.toLowerCase().trim()));
+        if(!alreadyExists){
+          combined.push(bp);
+        }
+      });
+
+      return combined;
     } catch(err){
       console.warn("Error reading portfolio data:", err);
-      return [];
+      return [...BUILTIN_PROJECTS];
     }
   }
 
@@ -2606,6 +2727,11 @@
     if(tabId === 'listTab'){
       loadAdminProjectsList();
     }
+    if(tabId === 'syncTab'){
+      const savedToken = localStorage.getItem("gcreators_gh_token") || "";
+      const inp = document.getElementById("ghTokenInput");
+      if(inp && !inp.value && savedToken) inp.value = savedToken;
+    }
   }
 
   function loadAdminProjectsList(){
@@ -2621,7 +2747,23 @@
       return;
     }
 
-    container.innerHTML = projects.map(p => {
+    const deployNoticeHtml = `
+      <div class="admin-publish-alert">
+        <div style="font-weight:750;color:#fff;margin-bottom:4px;display:flex;align-items:center;gap:6px;font-size:13px;">
+          <span>⚡</span>
+          <span>Projects saved in browser</span>
+        </div>
+        <p style="margin:0 0 10px;font-size:12px;color:rgba(234,240,255,.8);line-height:1.5;">
+          To make newly added projects permanent on <b>gcreators.vercel.app</b> for all visitors on any device:
+        </p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" class="btn primary" style="font-size:12px;padding:6px 12px;" onclick="downloadUpdatedIndexHtml()">📥 Download Updated index.html</button>
+          <a class="btn" style="font-size:12px;padding:6px 12px;" href="https://github.com/gokulnath075/gcreators/upload/main" target="_blank" rel="noopener">↗ Open GitHub Upload</a>
+        </div>
+      </div>
+    `;
+
+    container.innerHTML = deployNoticeHtml + projects.map(p => {
       const catMeta = PORTFOLIO_CATEGORIES[p.category] || { label: "Project", icon: "💻" };
       return `
         <div class="admin-proj-item">
@@ -2736,6 +2878,14 @@
       return;
     }
 
+    try {
+      const deleted = JSON.parse(localStorage.getItem("gcreators_deleted_projects") || "[]");
+      if(!deleted.includes(id)){
+        deleted.push(id);
+        localStorage.setItem("gcreators_deleted_projects", JSON.stringify(deleted));
+      }
+    } catch(e){}
+
     const updated = projects.filter(p => p.id !== id);
     savePortfolioToStorage(updated);
     renderPortfolio();
@@ -2800,10 +2950,150 @@
     if(!confirm("Are you sure you want to clear all projects from your portfolio?")){
       return;
     }
+    const all = getPortfolioProjects();
+    const deleted = all.map(p => p.id);
+    localStorage.setItem("gcreators_deleted_projects", JSON.stringify(deleted));
     savePortfolioToStorage([]);
     renderPortfolio();
     loadAdminProjectsList();
     showToast("All projects cleared");
+  }
+
+  // Generate updated index.html with current projects baked in and trigger download
+  async function downloadUpdatedIndexHtml(){
+    try {
+      showToast("Generating updated index.html...");
+      let htmlContent = "";
+
+      try {
+        const res = await fetch(window.location.href, { cache: "no-store" });
+        if(res.ok){
+          htmlContent = await res.text();
+        }
+      } catch(e){
+        console.warn("Fetch failed, falling back to outerHTML:", e);
+      }
+
+      if(!htmlContent || htmlContent.length < 5000){
+        htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      }
+
+      const currentProjects = getPortfolioProjects();
+      const formattedJson = JSON.stringify(currentProjects, null, 2);
+      const replacementStr = "const BUILTIN_PROJECTS = " + formattedJson + ";";
+
+      const regex = /const\s+BUILTIN_PROJECTS\s*=\s*\[[\s\S]*?\];/;
+      if(regex.test(htmlContent)){
+        htmlContent = htmlContent.replace(regex, replacementStr);
+      } else {
+        htmlContent = htmlContent.replace("function getPortfolioProjects()", replacementStr + "\n\n  function getPortfolioProjects()");
+      }
+
+      const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "index.html";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      showToast("✓ Downloaded index.html! Upload to GitHub to publish live.");
+    } catch(err){
+      alert("Error generating index.html: " + err.message);
+    }
+  }
+
+  // 1-Click publish direct to GitHub repository via GitHub REST API
+  async function publishDirectToGitHub(){
+    const tokenInput = document.getElementById("ghTokenInput");
+    const token = (tokenInput?.value || localStorage.getItem("gcreators_gh_token") || "").trim();
+    if(!token){
+      alert("Please enter your GitHub Personal Access Token first. Click 'Generate Free GitHub Token' for a 30-second guide.");
+      if(tokenInput) tokenInput.focus();
+      return;
+    }
+    localStorage.setItem("gcreators_gh_token", token);
+
+    const btn = document.getElementById("ghPublishBtn");
+    const statusDiv = document.getElementById("ghPublishStatus");
+    if(btn){ btn.disabled = true; btn.textContent = "⏳ Publishing to GitHub..."; }
+    if(statusDiv){ statusDiv.style.display = "block"; statusDiv.innerHTML = "Connecting to repository gokulnath075/gcreators on GitHub..."; }
+
+    try {
+      const repo = "gokulnath075/gcreators";
+      const filePath = "index.html";
+      const getUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
+
+      const getRes = await fetch(getUrl, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/vnd.github.v3+json"
+        }
+      });
+
+      if(!getRes.ok){
+        const errJson = await getRes.json().catch(()=>({}));
+        throw new Error(errJson.message || `Failed to fetch repository (HTTP ${getRes.status}). Please check token permissions.`);
+      }
+
+      const fileData = await getRes.json();
+      const currentSha = fileData.sha;
+      let existingContent = "";
+      try {
+        existingContent = decodeURIComponent(escape(atob(fileData.content.replace(/\s/g, ''))));
+      } catch(decErr){
+        existingContent = atob(fileData.content.replace(/\s/g, ''));
+      }
+
+      const currentProjects = getPortfolioProjects();
+      const formattedJson = JSON.stringify(currentProjects, null, 2);
+      const replacementStr = "const BUILTIN_PROJECTS = " + formattedJson + ";";
+
+      const regex = /const\s+BUILTIN_PROJECTS\s*=\s*\[[\s\S]*?\];/;
+      let newHtml = "";
+      if(regex.test(existingContent)){
+        newHtml = existingContent.replace(regex, replacementStr);
+      } else {
+        newHtml = existingContent.replace("function getPortfolioProjects()", replacementStr + "\n\n  function getPortfolioProjects()");
+      }
+
+      const encodedContent = btoa(unescape(encodeURIComponent(newHtml)));
+
+      if(statusDiv) statusDiv.innerHTML = "Pushing commit to GitHub repository...";
+
+      const putRes = await fetch(getUrl, {
+        method: "PUT",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/vnd.github.v3+json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          message: "Update portfolio client projects via Admin Panel [Auto-Deploy]",
+          content: encodedContent,
+          sha: currentSha
+        })
+      });
+
+      if(!putRes.ok){
+        const putErr = await putRes.json().catch(()=>({}));
+        throw new Error(putErr.message || `Commit failed (HTTP ${putRes.status})`);
+      }
+
+      if(statusDiv){
+        statusDiv.innerHTML = `<span style="color:#25d366;font-weight:700;">✓ Successfully published to GitHub!</span><br>Vercel is now building your update. It will be live on <b>gcreators.vercel.app</b> in ~15 seconds.`;
+      }
+      showToast("🚀 Successfully deployed to GitHub & Vercel!");
+    } catch(err){
+      if(statusDiv){
+        statusDiv.innerHTML = `<span style="color:#ff7a7a;font-weight:700;">Deploy Failed:</span> ${escapeHtml(err.message)}`;
+      }
+      alert("GitHub Deploy Error: " + err.message);
+    } finally {
+      if(btn){ btn.disabled = false; btn.textContent = "🚀 1-Click Publish Live to GitHub & Vercel"; }
+    }
   }
 
   function handlePasswordChange(e){
